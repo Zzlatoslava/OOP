@@ -1,6 +1,6 @@
-
 #pragma once
 #include "EventInterface.h"
+#include "PlayerMovement.h"
 
 class Teleport: public EventInterface {
 private:

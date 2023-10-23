@@ -1,5 +1,6 @@
 #pragma once
 #include "EventInterface.h"
+#include "PlayerMovement.h"
 
 class CollectAPoint : public EventInterface {
 private:
