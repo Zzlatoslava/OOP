@@ -103,7 +103,7 @@ void CreateField::createLevel(int level) {
 			}
 		}
 		for (int x = 24; x <= 29; x++) {
-			for (int y = 6; y <= 8; y++) {
+			for (int y = 6; y <= 12; y++) {
 				field->setPassability(x, y, false);
 				field->setPassability(x, y, false);    //кух гарнитур + стена
 			}
@@ -144,20 +144,67 @@ void CreateField::createLevel(int level) {
 
 
 	if (level == 1) {
-
+		auto* collectPoint = new CollectAPoint(movement);
+		this->setEventCF(collectPoint, SCORE);
 		auto* addingHealth = new AddingHealth(movement);
-		field->setEvent(addingHealth, 9, 19);
+		this->setEventCF(addingHealth, 3);
+		
+		{
+			field->setEvent(collectPoint, 3, 0);
+			field->setEvent(collectPoint, 0, 15);
+			field->setEvent(collectPoint, 9, 17);
+			field->setEvent(collectPoint, 15, 4);
+			field->setEvent(collectPoint, 14, 10);
+			field->setEvent(collectPoint, 19, 0);
+			field->setEvent(collectPoint, 20, 11);
+			field->setEvent(collectPoint, 20, 19);
+			field->setEvent(collectPoint, 26, 2);
+			field->setEvent(collectPoint, 17, 26);
+		}
 		
 	}
 	else if (level ==2){
+		auto* collectPoint = new CollectAPoint(movement);
+		this->setEventCF(collectPoint, SCORE);
 		auto* teleport = new Teleport(movement);
 		field->setEvent(teleport, 7, 9);
 		auto* addingHealth = new AddingHealth(movement);
-		field->setEvent(addingHealth, 9, 19);
+		this->setEventCF(addingHealth, 5);
 		auto* reducedHeath = new ReducedHealth(movement);
-		field->setEvent(reducedHeath, 23, 10);
+		this->setEventCF(reducedHeath, 3);
 		
-
 	}
+	else if (level == 3) {
+		for (int i = 0; i < field->getHeight(); i++) {
+			for (int j = 0; j < field->getWidth(); j++) {
+				field->setPassability(j, i);
+			}
+
+		}
+		field->setStart(0, 0);
+		field->setEnd(29, 19);
+		auto* collectPoint = new CollectAPoint(movement);
+		for (int x = 2; x <= 27; x++) {
+			for (int y = 2; y <= 17; y++) {
+				field->setEvent(collectPoint, x, y);
+			}
+		}
+	}
+	else {
+		throw "There is no such level, wait for the update";
+	}
+}
+void CreateField::setEventCF(EventInterface* event, int quantity) {
+	
+		srand(time(0));
+		int flag = 0;
+		while (flag < quantity) {
+			int coordX = rand() % field->getWidth();
+			int coordY = rand() % field->getHeight();
+			if (field->getPassability(coordX, coordY) && not field->isEvent(coordX, coordY)) {
+				field->setEvent(event, coordX, coordY);
+				flag++;
+			}
+		}
 	
 }

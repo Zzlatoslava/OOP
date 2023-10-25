@@ -28,6 +28,7 @@ public:
     void setCoordinates(int newX, int newY);
     int getXCoordinate();
     int getYCoordinate();
+    void setPassabilityGF(int x, int y);
     
 
     

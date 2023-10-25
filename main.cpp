@@ -3,6 +3,7 @@
 #include "GameField.h"
 
 
+
 int main() {
 	
 	try {
@@ -12,5 +13,7 @@ int main() {
 	catch (const char* error_message) {
 		std::cout << error_message << std::endl;
 	}
+
+	
 	return 0;
 }

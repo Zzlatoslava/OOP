@@ -10,4 +10,4 @@ CollectAPoint::CollectAPoint(PlayerMovement* pmovement) {
 
 void CollectAPoint::someEvent() {
 	movement->increaseScore(1);
-}
+} 

@@ -27,3 +27,8 @@ void Cell::workingEvent() {
 		this->event->someEvent();
 	}
 }
+
+bool Cell::isEventCell() {
+	if (this->event != nullptr) { return true; }
+	return false;
+}

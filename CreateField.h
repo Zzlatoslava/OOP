@@ -17,4 +17,5 @@ public:
 
 	CreateField(GameField* gamefield,PlayerMovement* pmovement, int level = 1);
 	void createLevel(int level =1);
+	void setEventCF( EventInterface* event, int quantity);
 };

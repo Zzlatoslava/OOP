@@ -9,5 +9,7 @@ Teleport::Teleport(PlayerMovement* pmovement) {
 }
 
 void Teleport::someEvent() {
-	movement->setCoordinates(1, 1); //поменять координаты 
+	movement->setCoordinates(28, 9); 
+	movement->setPassabilityGF(24, 10);
+	movement->setPassabilityGF(24, 11);
 }

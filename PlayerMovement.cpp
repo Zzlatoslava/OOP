@@ -85,5 +85,9 @@ void PlayerMovement::setCoordinates(int newX, int newY) {
 int PlayerMovement::getXCoordinate() { return this->x; }
 int PlayerMovement::getYCoordinate() { return this->y; }
 
+void PlayerMovement::setPassabilityGF(int x, int y){
+    gameField->setPassability(x, y);
+}
+
 
 

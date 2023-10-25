@@ -192,6 +192,13 @@ EventInterface& GameField::getEvent(int x, int y) {
     return this->cells[y][x].getEvent();
 }
 
+bool GameField::isEvent(int x, int y) {
+    if (cells[y][x].isEventCell()) { return true; }
+    return false;
+}
+
 void GameField::activeEvent(int x, int y) {
     cells[x][y].workingEvent();
 }
+
+
