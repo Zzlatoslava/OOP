@@ -184,6 +184,9 @@ bool GameField::outOfField(int x, int y) {
 
 void GameField::setEvent(EventInterface* event, int x, int y)
 {
+    if (not (getPassability(x, y)) || isEvent(x, y)) {
+        throw "The event cannot be set\n";
+    }
     this->cells[y][x].setEventCell(event);
 }
 

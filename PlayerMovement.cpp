@@ -1,7 +1,7 @@
 #include <iostream>
 #include "PlayerMovement.h"
 
-PlayerMovement::PlayerMovement(Player* p, int start_x, int start_y, GameField* field) {
+PlayerMovement::PlayerMovement(Player* p, GameField* field ,int start_x, int start_y) {
     if (p == nullptr || MAX_WIDTH < start_x || start_x < 0 || MAX_HEIGHT < start_y || start_y < 0 || field == nullptr) {
         throw "Error in creating a PlayerMovement class object\n";
     }

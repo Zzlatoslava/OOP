@@ -3,7 +3,8 @@
 #include "CollectAPoint.h"
 #include "ReducedHealth.h"
 #include "Teleport.h"
-
+#include <iostream>
+#define MAX_LEVEL 2
 
 
 
@@ -16,6 +17,8 @@ private:
 public:
 
 	CreateField(GameField* gamefield,PlayerMovement* pmovement, int level = 1);
-	void createLevel(int level =1);
+	void createLevel();
 	void setEventCF( EventInterface* event, int quantity);
+	int getLevel();
+	void setLevel(int num_level);
 };

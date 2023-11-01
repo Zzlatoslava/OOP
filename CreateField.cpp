@@ -2,16 +2,16 @@
 
 
 CreateField::CreateField(GameField* gamefield,PlayerMovement* pmovement, int num_level){
-	if (gamefield == nullptr || pmovement == nullptr || num_level < 0) {
+	if (gamefield == nullptr || pmovement == nullptr || num_level < 0 || num_level > MAX_LEVEL) {
 		throw "Error in creating a CreateField class object\n";
 	}
 	this->field = gamefield;
 	this->movement = pmovement;
 	this->level = num_level;
-	createLevel(level);
+	this->createLevel();
 }
 
-void CreateField::createLevel(int level) {
+void CreateField::createLevel() {
 	{											// 1
 		for (int y = 0; y <= 4; y++) {
 			field->setPassability(0, y, false);
@@ -144,29 +144,21 @@ void CreateField::createLevel(int level) {
 
 
 	if (level == 1) {
+		std::cout << "Create 1 level..\n";
 		auto* collectPoint = new CollectAPoint(movement);
 		this->setEventCF(collectPoint, SCORE);
 		auto* addingHealth = new AddingHealth(movement);
 		this->setEventCF(addingHealth, 3);
 		
-		{
-			field->setEvent(collectPoint, 3, 0);
-			field->setEvent(collectPoint, 0, 15);
-			field->setEvent(collectPoint, 9, 17);
-			field->setEvent(collectPoint, 15, 4);
-			field->setEvent(collectPoint, 14, 10);
-			field->setEvent(collectPoint, 19, 0);
-			field->setEvent(collectPoint, 20, 11);
-			field->setEvent(collectPoint, 20, 19);
-			field->setEvent(collectPoint, 26, 2);
-			field->setEvent(collectPoint, 17, 26);
-		}
+		
 		
 	}
 	else if (level ==2){
+		std::cout << "Create 2 level..\n";
 		auto* collectPoint = new CollectAPoint(movement);
 		this->setEventCF(collectPoint, SCORE);
 		auto* teleport = new Teleport(movement);
+		field->setPassability(7, 9);
 		field->setEvent(teleport, 7, 9);
 		auto* addingHealth = new AddingHealth(movement);
 		this->setEventCF(addingHealth, 5);
@@ -201,10 +193,18 @@ void CreateField::setEventCF(EventInterface* event, int quantity) {
 		while (flag < quantity) {
 			int coordX = rand() % field->getWidth();
 			int coordY = rand() % field->getHeight();
-			if (field->getPassability(coordX, coordY) && not field->isEvent(coordX, coordY)) {
+			if (field->getPassability(coordX, coordY) && not(field->isEvent(coordX, coordY))) {
 				field->setEvent(event, coordX, coordY);
 				flag++;
 			}
 		}
 	
+}
+
+int CreateField::getLevel() {
+	return this->level;
+}
+
+void CreateField::setLevel(int num_level){
+	this->level = num_level;
 }

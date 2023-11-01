@@ -6,7 +6,7 @@ private:
 	bool passability; 
 	EventInterface* event;
 public:
-	Cell( bool newPassability = true, EventInterface* newEvent = nullptr);
+	Cell( bool newPassability = true, EventInterface* newEvent = 0);
 	void setPassability(bool passability = true);
 	bool isPassability();
 	EventInterface& getEvent();

@@ -16,7 +16,7 @@ private:
     GameField* gameField;
 
 public:
-    PlayerMovement(Player* p, int x, int y, GameField* field);
+    PlayerMovement(Player* p,  GameField* field, int x = 0 , int y = 0);
     void move(Direction direction);
     void increaseHealth(int addHealth);
     void decreaseHealth(int amount);

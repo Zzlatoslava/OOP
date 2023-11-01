@@ -25,7 +25,9 @@ void Cell::setEventCell(EventInterface* newEvent) {
 void Cell::workingEvent() {
 	if (this->event != nullptr) {
 		this->event->someEvent();
+		this->event = nullptr;
 	}
+
 }
 
 bool Cell::isEventCell() {
