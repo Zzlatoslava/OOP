@@ -141,9 +141,11 @@
     <ClCompile Include="CreateField.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameField.cpp" />
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
+    <ClCompile Include="ReadConsol.cpp" />
     <ClCompile Include="ReducedHealth.cpp" />
     <ClCompile Include="Teleport.cpp" />
   </ItemGroup>
@@ -155,8 +157,10 @@
     <ClInclude Include="EventInterface.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameField.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMovement.h" />
+    <ClInclude Include="ReadConsol.h" />
     <ClInclude Include="ReducedHealth.h" />
     <ClInclude Include="Teleport.h" />
   </ItemGroup>

@@ -8,7 +8,7 @@ CreateField::CreateField(GameField* gamefield,PlayerMovement* pmovement, int num
 	this->field = gamefield;
 	this->movement = pmovement;
 	this->level = num_level;
-	this->createLevel();
+	
 }
 
 void CreateField::createLevel() {
