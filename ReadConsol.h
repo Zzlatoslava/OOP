@@ -12,8 +12,7 @@ enum Move {
     move_up,
     move_left,
     move_down,
-    move_right,
-    esc
+    move_right
 };
 
 class InputReader {
@@ -22,7 +21,7 @@ public:
 
     void setupKeys(const std::string& filename);
 
-    void readInput();
+    Direction readInput();
 
     Direction executeCommand(Move command);
 

@@ -16,24 +16,28 @@
                 if (command == "move_left") keyToCommand[key] = move_left;
                 if (command == "move_right") keyToCommand[key] = move_right;
                 if (command == "move_down") keyToCommand[key] = move_down;
-                if (command == " esc")keyToCommand[key] = esc;
+        
                 
             }
         }
-
+        std::cout << "File open or close\n";
         file.close();
     }
 
-    void InputReader::readInput() {
+    Direction InputReader::readInput() {
         char key;       
-        while (true) {
+        std::cout << "Press to key:\n";
+        
             key = _getch();
             auto it = keyToCommand.find(key);
             if (it != keyToCommand.end()) {
                 Move command = it->second;
-                executeCommand(command);
+                return executeCommand(command);
             }
-        }
+            else {
+                return NONE;
+            }
+        
     }
 
     Direction InputReader::executeCommand(Move command)
@@ -55,9 +59,8 @@
             std::cout << "v\n";
             return DOWN;
             break;
-        case esc:
-            std::cout << "esc";
-            break;
+
+        
         }
     }
 
