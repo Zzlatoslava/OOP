@@ -6,7 +6,8 @@ enum Direction {
     UP,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT,
+    NONE
 };
 
 class PlayerMovement  {
@@ -17,7 +18,7 @@ private:
 
 public:
     PlayerMovement(Player* p,  GameField* field, int x = 0 , int y = 0);
-    void move(Direction direction);
+    bool move(Direction direction);
     void increaseHealth(int addHealth);
     void decreaseHealth(int amount);
     void increaseScore(int amount);

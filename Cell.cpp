@@ -8,6 +8,7 @@ Cell::Cell( bool newPassability, EventInterface* newEvent){
 void Cell::setPassability(bool passability ) {
 	this->passability = passability;
 };
+
 bool Cell::isPassability() {
 	return this->passability;
 };

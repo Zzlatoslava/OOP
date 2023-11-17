@@ -5,26 +5,26 @@
 #include <map>
 #include <conio.h>
 #include "CreateField.h"
-#include <SFML/Window/Keyboard.hpp>
+
 
 
 enum Move {
     move_up,
     move_left,
     move_down,
-    move_right
+    move_right,
+    Default
 };
 
 class InputReader {
 public:
-    InputReader() {}
+    InputReader(const std::string& filename);
+    Move readInput();
+    ~InputReader();
 
-    void setupKeys(const std::string& filename);
-
-    Direction readInput();
-
-    Direction executeCommand(Move command);
+    
 
 private:
+    std::ifstream inputFile;
     std::map<char, Move> keyToCommand;
 };

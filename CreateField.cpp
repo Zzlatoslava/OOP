@@ -140,10 +140,10 @@ void CreateField::createLevel() {
 	}
 
 	field->setStart(5, 5);
-	field->setEnd(17, 0);
+	field->setEnd(3, 5);
+	movement->setCoordinates(field->getStartX(), field->getStartY());
 
-
-	if (level == 1) {
+	if (this->level == 1) {
 		std::cout << "Create 1 level..\n";
 		auto* collectPoint = new CollectAPoint(movement);
 		this->setEventCF(collectPoint, SCORE);

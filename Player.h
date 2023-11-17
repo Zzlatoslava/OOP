@@ -10,7 +10,7 @@ private:
     int score;
 
 public:
-    Player(int initialHealth = HEALTH, int initialScore = SCORE);
+    Player(int initialHealth = HEALTH, int initialScore = 0);
 
     int getHealth() const;
     void setHealth(int newHealth);

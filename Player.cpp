@@ -15,7 +15,7 @@ int Player::getHealth() const {
 }
 
 void Player::setHealth(int newHealth) {
-    if (HEALTH < newHealth < 0) {
+    if (HEALTH < newHealth || newHealth < 0) {
         throw "Invalid value score in setHealth()\n";
         
     }
@@ -26,7 +26,7 @@ int Player::getScore() const{
 }
 
 void Player::setScore(int newScore) {
-    if (SCORE < newScore < 0) {
+    if (SCORE < newScore || newScore < 0) {
         throw "Invalid value score in setScore()\n";
         
     }

@@ -21,4 +21,5 @@ public:
 	void setEventCF( EventInterface* event, int quantity);
 	int getLevel();
 	void setLevel(int num_level);
+
 };

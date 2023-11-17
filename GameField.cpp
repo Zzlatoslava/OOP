@@ -159,8 +159,8 @@ void GameField::setEnd(int x2, int y2) {
     if (height < y2 || y2 < 0 || width < x2 || x2 < 0) {
         throw "Invalid value in setEnd()\n";
     }
-    this->startX = x2;
-    this->startY = y2;
+    this->endX = x2;
+    this->endY = y2;
 }
 const Cell& GameField::getCell(int x, int y) {
     if (height < y || y < 0 || width < x || x < 0) {
@@ -172,12 +172,16 @@ void GameField::setPassability(int x, int y, bool passability ) {
     this->cells[y][x].setPassability(passability);
 }
 bool GameField::getPassability(int x, int y) {
-    return this->cells[y][x].isPassability();
+    if (outOfField(x, y)) {
+        return this->cells[y][x].isPassability();
+    }
+    return false;
     
 }
 bool GameField::outOfField(int x, int y) {
     if (x > width || x < 0 || y > width || y < 0) {
-        throw "Going beyond the game field\n";
+        //throw "Going beyond the game field\n";
+        return false;
     }
     return true;
 }

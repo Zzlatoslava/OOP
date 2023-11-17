@@ -13,7 +13,7 @@ Commands GUI::startWin(){
     {
         throw "Image loading error\n";
     }
-    sprite.setTexture(texture);
+    background.setTexture(texture);
 
 
 
@@ -54,7 +54,7 @@ Commands GUI::startWin(){
         }
 
         window.clear();
-        window.draw(sprite);
+        window.draw(background);
         window.display();
     }
 
@@ -68,7 +68,7 @@ Commands GUI::selectLevelWin(){
     {
         throw "Image loading error\n";
     }
-    sprite.setTexture(texture);
+    background.setTexture(texture);
 
     while (window.isOpen())
     {
@@ -113,45 +113,86 @@ Commands GUI::selectLevelWin(){
             }
         }
         window.clear();
-        window.draw(sprite);
+        window.draw(background);
         window.display();
     }
 
 }
 
-Commands GUI::level(){
+sf::Sprite GUI::level()
+{
     if (!texture.loadFromFile("Image/flat.png"))
     {
         throw "Image loading error\n";
     }
-    sprite.setTexture(texture);
+    background.setTexture(texture);
 
+    return background;
+}
 
+sf::Sprite GUI::cat()
+{
+    
+    if (!textureCat.loadFromFile("Image/cat_1.png"))
+    {
+        throw "Image loading error\n";
+    }
+    
+    myCat.setTexture(textureCat);
+    myCat.setOrigin(35.f, 35.f);
+    return myCat;
+}
+
+Commands GUI::levelGame(sf::Sprite* level, sf::Sprite* cat, Move move)
+{
+    cat->setPosition(315.f, 320.f);
+
+    switch (move) {
+    case move_up:
+        cat->move(0.f, -40.f);
+        break;
+    case move_down:
+        cat->move(0.f, 40.f);
+        break;
+    case move_left:
+        cat->move(-40.f, 0.f);
+        break;
+    case move_right:
+        cat->move(40.f, 0.f);
+        break;
+    case Default:
+        break;
+    }
 
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed) {
+            if (event.type == sf::Event::Closed)
+            {
                 window.close();
                 return EXIT;
             }
-            if (event.type == sf::Event::MouseButtonPressed)
-            {
-                if (event.mouseButton.button == sf::Mouse::Left)
-                {
-                    return LEVEL_WIN;
-                }
-            }
+
             
         }
 
         window.clear();
-        window.draw(sprite);
+        window.draw(*level);
+        window.draw(*cat);
         window.display();
     }
+
+
 }
+
+
+    
+    
+
+
+    
 
 Commands GUI::afterLevelWin(int num_level, int max_level){
     
@@ -160,7 +201,7 @@ Commands GUI::afterLevelWin(int num_level, int max_level){
     {
         throw "Image loading error\n";
     }
-    sprite.setTexture(texture);
+    background.setTexture(texture);
 
 
 
@@ -204,7 +245,7 @@ Commands GUI::afterLevelWin(int num_level, int max_level){
         }
 
         window.clear();
-        window.draw(sprite);
+        window.draw(background);
         window.display();
     }
 }
@@ -216,7 +257,7 @@ Commands GUI::endWin(){
     {
         throw "Image loading error\n";
     }
-    sprite.setTexture(texture);
+    background.setTexture(texture);
 
     while (window.isOpen())
     {
@@ -247,7 +288,7 @@ Commands GUI::endWin(){
         }
 
         window.clear();
-        window.draw(sprite);
+        window.draw(background);
         window.display();
     }
 
@@ -258,7 +299,7 @@ Commands GUI::gameOverWin(){
     {
         throw "Image loading error\n";
     }
-    sprite.setTexture(texture);
+    background.setTexture(texture);
 
     
 
@@ -284,9 +325,13 @@ Commands GUI::gameOverWin(){
         }
 
         window.clear();
-        window.draw(sprite);
+        window.draw(background);
         window.display();
     }
 
 }
+
+
+
+
 

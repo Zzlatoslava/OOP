@@ -9,11 +9,8 @@ int main() {
 	try {
 		     
 		Game game;
-		InputReader reader;
-		reader.setupKeys("keys.txt");
-
 		
-			reader.readInput();
+
 		
 
 

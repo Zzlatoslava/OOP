@@ -11,50 +11,58 @@ PlayerMovement::PlayerMovement(Player* p, GameField* field ,int start_x, int sta
     gameField = field;
 
 }
-void PlayerMovement::move(Direction direction) {
+bool PlayerMovement::move(Direction direction) {
+    bool okey = false;
+    int newX = x;
+    int newY = y;
     switch (direction) {
         case UP:
-            if (gameField->getPassability(x, y++)) {
-                this->setCoordinates(x, y++);
+            newY--;
+            if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
+                okey =  true;
             }
-            
             break;
         case DOWN:
-            if (gameField->getPassability(x, y--)) {
-                this->setCoordinates(x, y--);
+            newY++;
+            if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
+                okey = true;
             }
             break;
         case LEFT:
-            if (gameField->getPassability(x--, y)) {
-                this->setCoordinates(x--, y);
+            newX--;
+            if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
+                okey = true;
             }
             break;
         case RIGHT:
-            if (gameField->getPassability(x++, y)) {
-                this->setCoordinates(x++, y);
+            newX++;
+            if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
+                okey = true;
             }
             break;
         default:
-            std::cout << "Error!\n";
+            return okey;
+            break;
 
     }
-    gameField->activeEvent(this->x, this->y);
-
+    if (okey) {
+        this->setCoordinates(newX, newY);
+        gameField->activeEvent(this->x, this->y);
+    }
+    return okey;
 }
 void PlayerMovement::increaseHealth(int addHealth) {
     
     int currentHealth = player->getHealth();
+    if (currentHealth + addHealth > HEALTH) {
+        player->setHealth(HEALTH);
+    }
     player->setHealth(currentHealth + addHealth);
     
 }
 void PlayerMovement::decreaseHealth(int decreaseHealth) {
     int currentHealth = player->getHealth();
     player->setHealth(currentHealth - decreaseHealth);
-
-    if (player->getHealth() < 1) {
-        std::cout << "Game Over!";
-        exit(1);
-    }
 }
 
 void PlayerMovement::increaseScore(int addScore) {
