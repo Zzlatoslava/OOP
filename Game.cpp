@@ -8,11 +8,14 @@ Game::Game() {
 	CreateField GMap(&map, &nav);
 	GUI graphics;
 	FileReader file;
-	file.InputSettingsReader("keys.txt");
+	//file.InputSettingsReader("keys.txt");
+	InputList list;
+	list.InputSettingsReaderL();
+	
 	sf::Sprite level;
 	sf::Sprite cat;
 	InputReader reader;
-
+	//reader.read(list.getKeyList());
 	Commands command = START;
 	bool work = true;
 	while (work) {
@@ -30,7 +33,7 @@ Game::Game() {
 			cat = graphics.cat();
 			Move move;
 			 do {
-				move = reader.read(file.getKeyList());
+				move = reader.read(list.getKeyList());
 				if (nav.move(moveSelection(move))) {
 					std::cout << "X: " << nav.getXCoordinate()<<"\n";
 					std::cout << "Y: " << nav.getYCoordinate()<<"\n";

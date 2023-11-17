@@ -1,9 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include <conio.h>
 #include "InputReaderI.h"
-#include "FileReader.h"
+#include "InputList.h"
 
 
 

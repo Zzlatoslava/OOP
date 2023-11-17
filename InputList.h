@@ -4,15 +4,17 @@
 #include "iostream"
 #include "vector"
 #include "map"
+#include <conio.h>
+#include "FileReader.h"
+
 
 class InputList {
-    std::vector<std::string> table;
+private:
+    std::map<int, std::string> keyMap;
+    std::vector<std::string> commands{ "move_up", "move_left", "move_right", "move_down" };
+
 public:
     InputList();
-
-    void insert_item(int key, const std::string& command);
-    void displayHash();
-    bool find(int key);
-    int count_command(const std::string& command);
-    std::string getCommand(int key);
+    void InputSettingsReaderL();
+    std::map<int, std::string>* getKeyList();
 };
