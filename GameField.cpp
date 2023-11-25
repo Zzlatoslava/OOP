@@ -179,7 +179,7 @@ bool GameField::getPassability(int x, int y) {
     
 }
 bool GameField::outOfField(int x, int y) {
-    if (x > width || x < 0 || y > width || y < 0) {
+    if (x >= width || x < 0 || y >= height || y < 0) {
         //throw "Going beyond the game field\n";
         return false;
     }
@@ -205,7 +205,7 @@ bool GameField::isEvent(int x, int y) {
 }
 
 void GameField::activeEvent(int x, int y) {
-    cells[x][y].workingEvent();
+    cells[y][x].workingEvent();
 }
 
 

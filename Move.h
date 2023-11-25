@@ -6,5 +6,6 @@ enum Move {
     move_left,
     move_down,
     move_right,
-    Default
+    Default,
+    escape
 };

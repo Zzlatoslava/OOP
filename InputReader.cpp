@@ -15,6 +15,9 @@ Move InputReader::read(std::map<int, std::string>* KeyConfig) {
             return move_down;
         if (KeyConfig->find(key)->second == "move_right")
             return move_right;
+       
     }
+    if (key == 27)
+        return escape;
     return Default;// Если команда не найдена
 }

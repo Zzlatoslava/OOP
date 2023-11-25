@@ -7,7 +7,7 @@
 int main() {
 	
 	try {
-		     
+		
 		Game game;
 		
 

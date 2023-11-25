@@ -11,3 +11,8 @@ AddingHealth::AddingHealth(PlayerMovement* pmovement) {
 void AddingHealth::someEvent() {
 	movement->increaseHealth(1);
 }
+
+int AddingHealth::getID()
+{
+	return this->id;
+}

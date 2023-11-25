@@ -1,7 +1,7 @@
 #pragma once
 
 #define HEALTH 9
-#define SCORE 10
+#define SCORE 100
 
 
 class Player {

@@ -151,11 +151,13 @@
     <ClCompile Include="ReadConsol.cpp" />
     <ClCompile Include="ReducedHealth.cpp" />
     <ClCompile Include="Teleport.cpp" />
+    <ClCompile Include="Tracking.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddingHelath.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CollectAPoint.h" />
+    <ClInclude Include="Commands.h" />
     <ClInclude Include="CreateField.h" />
     <ClInclude Include="EventInterface.h" />
     <ClInclude Include="FileReader.h" />
@@ -172,6 +174,7 @@
     <ClInclude Include="ReadConsol.h" />
     <ClInclude Include="ReducedHealth.h" />
     <ClInclude Include="Teleport.h" />
+    <ClInclude Include="Tracking.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

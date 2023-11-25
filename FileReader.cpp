@@ -9,6 +9,7 @@ void FileReader::InputSettingsReader(const std::string& filename) {
     std::string line;
     while (std::getline(inputFile, line)) {
         if (line.length() > 0) {
+            
             char key = line[0];
             std::string command = line.substr(2);
             keyMap[key] = command;

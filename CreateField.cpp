@@ -140,20 +140,22 @@ void CreateField::createLevel() {
 	}
 
 	field->setStart(5, 5);
-	field->setEnd(3, 5);
+	field->setEnd(17, 0);
 	movement->setCoordinates(field->getStartX(), field->getStartY());
 
 	if (this->level == 1) {
 		std::cout << "Create 1 level..\n";
 		auto* collectPoint = new CollectAPoint(movement);
-		this->setEventCF(collectPoint, SCORE);
-		auto* addingHealth = new AddingHealth(movement);
-		this->setEventCF(addingHealth, 3);
 		
-		
+		auto* reducedHealth = new ReducedHealth(movement);
+		this->setEventCF(reducedHealth, 3);
+		/*for (int i = 0; i < 9; i++) {
+			field->setEvent(reducedHealth, 2, i);
+		}
+		this->setEventCF(collectPoint, SCORE);*/
 		
 	}
-	else if (level ==2){
+	else if (level == 2){
 		std::cout << "Create 2 level..\n";
 		auto* collectPoint = new CollectAPoint(movement);
 		this->setEventCF(collectPoint, SCORE);

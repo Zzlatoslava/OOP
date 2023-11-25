@@ -11,3 +11,8 @@ CollectAPoint::CollectAPoint(PlayerMovement* pmovement) {
 void CollectAPoint::someEvent() {
 	movement->increaseScore(1);
 } 
+
+int CollectAPoint::getID()
+{
+	return this->id;
+}

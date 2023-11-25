@@ -1,6 +1,18 @@
 #include "GUI.h"
 
-GUI::GUI() {
+GUI::GUI(Tracking* mTracking) {
+    if (mTracking == nullptr) {
+        throw "Error in creating a GUI class object\n";
+    }
+    this->tracking = mTracking;
+    cat_Before();
+    cat_Back();
+    cat_Left();
+    cat_Right();
+    cat = catBack;
+    water();
+    level();
+
     
 }
 
@@ -118,81 +130,6 @@ Commands GUI::selectLevelWin(){
     }
 
 }
-
-sf::Sprite GUI::level()
-{
-    if (!texture.loadFromFile("Image/flat.png"))
-    {
-        throw "Image loading error\n";
-    }
-    background.setTexture(texture);
-
-    return background;
-}
-
-sf::Sprite GUI::cat()
-{
-    
-    if (!textureCat.loadFromFile("Image/cat_1.png"))
-    {
-        throw "Image loading error\n";
-    }
-    
-    myCat.setTexture(textureCat);
-    myCat.setOrigin(35.f, 35.f);
-    return myCat;
-}
-
-Commands GUI::levelGame(sf::Sprite* level, sf::Sprite* cat, Move move)
-{
-    cat->setPosition(315.f, 320.f);
-
-    switch (move) {
-    case move_up:
-        cat->move(0.f, -40.f);
-        break;
-    case move_down:
-        cat->move(0.f, 40.f);
-        break;
-    case move_left:
-        cat->move(-40.f, 0.f);
-        break;
-    case move_right:
-        cat->move(40.f, 0.f);
-        break;
-    case Default:
-        break;
-    }
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-                return EXIT;
-            }
-
-            
-        }
-
-        window.clear();
-        window.draw(*level);
-        window.draw(*cat);
-        window.display();
-    }
-
-
-}
-
-
-    
-    
-
-
-    
 
 Commands GUI::afterLevelWin(int num_level, int max_level){
     
@@ -330,6 +267,164 @@ Commands GUI::gameOverWin(){
     }
 
 }
+
+
+
+
+void GUI::level()
+{
+    if (!textureL.loadFromFile("Image/flat.png"))
+    {
+        throw "Image loading error\n";
+    }
+    backgroundL.setTexture(textureL);
+    
+
+
+}
+
+void GUI::cat_Before()
+{
+
+    if (!textureCBefore.loadFromFile("Image/cat_1.png"))
+    {
+        throw "Image loading error\n";
+    }
+
+    catBefore.setTexture(textureCBefore);
+    catBefore.setOrigin(35.f, 35.f);
+
+
+}
+
+void GUI::cat_Back()
+{
+    if (!textureCBack.loadFromFile("Image/cat_2.png"))
+    {
+        throw "Image loading error\n";
+    }
+
+    catBack.setTexture(textureCBack);
+    catBack.setOrigin(35.f, 35.f);
+}
+
+void GUI::cat_Left()
+{
+    if (!textureCLeft.loadFromFile("Image/cat_3.png"))
+    {
+        throw "Image loading error\n";
+    }
+
+    catLeft.setTexture(textureCLeft);
+    catLeft.setOrigin(35.f, 35.f);
+
+}
+
+void GUI::cat_Right()
+{
+    if (!textureCRight.loadFromFile("Image/cat_4.png"))
+    {
+        throw "Image loading error\n";
+    }
+
+    catRight.setTexture(textureCRight);
+    catRight.setOrigin(35.f, 35.f);
+}
+
+Commands GUI::levelGame(Move move) {
+
+
+    //cat.setPosition(x, y);
+    //Move GUIMove;
+    
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+                return EXIT;
+            }
+
+
+        }
+
+        window.draw(backgroundL);
+
+        Event tmp;
+        for (int y = 0; y < MAX_HEIGHT; y++) {
+            for (int x = 0; x < MAX_WIDTH; x++) {
+                tmp = tracking->getEvent(x, y);
+                switch (tmp) {
+                case Reduced:
+
+                    waterS.setPosition(90.f + x * 40.f, 95.f + y * 40.f);
+                    window.draw(waterS);
+
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+        moveCat(move);
+        cat.setPosition(x, y);
+
+
+        window.draw(cat);
+        window.display();
+       
+}
+
+
+void GUI::moveCat(Move move) {
+    switch (move) {
+    case move_up:
+        y -= 40.f;
+        cat = catBack;
+        break;
+    case move_down:
+
+        y += 40.f;
+        cat = catBefore;
+        break;
+    case move_left:
+        x -= 40.f;
+        cat = catLeft;
+
+        break;
+    case move_right:
+        x += 40.f;
+        cat = catRight;
+        break;
+    case Default:
+        cat = catBack;
+        break;
+    
+
+    }
+}
+
+void GUI::water()
+{
+
+    if (!textureWater.loadFromFile("Image/water.png"))
+    {
+        throw "Image loading error\n";
+    }
+
+    waterS.setTexture(textureWater);
+    //waterS.setOrigin(20.f, 21.f);
+}
+
+
+
+
+
+
+
+
+
 
 
 

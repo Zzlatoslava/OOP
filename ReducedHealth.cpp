@@ -10,4 +10,11 @@ ReducedHealth::ReducedHealth(PlayerMovement* pmovement) {
 
 void ReducedHealth::someEvent() {
 	movement->decreaseHealth(1);
+	
 }
+
+int ReducedHealth::getID()
+{
+	return this->id;
+}
+

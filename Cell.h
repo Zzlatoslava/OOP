@@ -1,5 +1,7 @@
 #pragma once
 #include "EventInterface.h"
+#include <typeinfo>
+#include <iostream>
 
 class Cell {
 private:

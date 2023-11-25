@@ -2,23 +2,17 @@
 
 Game::Game() {
 
-	Player player1;
+	Player player;
 	GameField map;
-	PlayerMovement nav(&player1, &map);
+	PlayerMovement nav(&player, &map);
+	Tracking tracking(&player, &map, &nav);
+
 	CreateField GMap(&map, &nav);
-	GUI graphics;
-	FileReader file;
-	//file.InputSettingsReader("keys.txt");
-	InputList list;
-	list.InputSettingsReaderL();
-	
-	sf::Sprite level;
-	sf::Sprite cat;
-	InputReader reader;
-	//reader.read(list.getKeyList());
+	GUI graphics(&tracking);
 	Commands command = START;
 	bool work = true;
 	while (work) {
+
 		switch (command) {
 		case START:
 			command = graphics.startWin();
@@ -27,21 +21,76 @@ Game::Game() {
 			command = graphics.selectLevelWin();
 			break;
 		case LEVEL_1:
-			GMap.setLevel(1);
+			tracking.setLevel(1);
+			GMap.setLevel(tracking.getLevel());
 			GMap.createLevel();
-			level = graphics.level();
-			cat = graphics.cat();
+			graphics.levelGame();
 			Move move;
+			do {
+
+				//move = reader.read(list.getKeyList());
+				//move = reader.read(file.getKeyList());
+				
+				if (tracking.movePlayer(&move)) {
+					tracking.printIndicators();
+					graphics.levelGame(move);
+				}
+				if (move == escape) {
+					command = START;
+					break;
+				}
+				if (tracking.dead()) {
+					command = GAME_OVER;
+					break;
+				}
+				if (tracking.winGame()) {
+					command = LEVEL_WIN;
+					break;
+				}
+
+					//graphics.levelGame(&level, &cat);
+
+					
+					
+			
+
+
+			} while (true);
+			
+			//graphics.setCoord();
+			player.setHealth(HEALTH);
+			player.setScore(0);
+			//command = LEVEL_WIN;
+			break;
+
+
+			/*GMap.setLevel(1);
+			GMap.createLevel();
+			
+			Move move;
+			
 			 do {
-				move = reader.read(list.getKeyList());
+				
+				 //move = reader.read(list.getKeyList());
+				move = reader.read(file.getKeyList());
+				if (map.isEvent(nav.getXCoordinate(), nav.getYCoordinate())) {
+
+					std::cout << typeid(map.getEvent(nav.getXCoordinate(), nav.getYCoordinate())).name() << "\n";
+				} 
 				if (nav.move(moveSelection(move))) {
 					std::cout << "X: " << nav.getXCoordinate()<<"\n";
 					std::cout << "Y: " << nav.getYCoordinate()<<"\n";
-					/*graphics.levelGame(&level, &cat, move);
-					if (graphics.levelGame(&level, &cat, move) == EXIT) {
+					std::cout << "Score: " << player1.getScore()<<"\n";
+					std::cout << "Health: " << player1.getHealth() << "\n";
+					
+					
+
+					//graphics.levelGame(&level, &cat);
+					
+					if (graphics.levelGame() == EXIT) {
 						command = EXIT;
 						break;
-					}*/
+					}
 					if (dead(&player1)) {
 						command = GAME_OVER;
 						break;
@@ -50,17 +99,24 @@ Game::Game() {
 				
 				
 			 } while (!winGame(&nav, &map));
+			 if (dead(&player1)) {
+				 command = GAME_OVER;
+				 break;
+			 }
+			 graphics.setCoord();
+			 player1.setHealth(HEALTH);
+			 player1.setScore(0);
 			command = LEVEL_WIN;
+			break;*/
 			break;
 		case LEVEL_2:
-			GMap.setLevel(2);
-			GMap.createLevel();
+			
 			// отработка передвижения
 			command = LEVEL_WIN;
 			break;
 		case LEVEL_WIN:
-			command = graphics.afterLevelWin(GMap.getLevel(), MAX_LEVEL);
-			GMap.setLevel(GMap.getLevel() + 1);
+			command = graphics.afterLevelWin(tracking.getLevel(), MAX_LEVEL);
+			
 			break;
 		case END:
 			command = graphics.endWin();
@@ -79,41 +135,7 @@ Game::Game() {
 	}
 }
 
-bool Game::winGame(PlayerMovement* pmove, GameField* map) {
-	if (pmove->getXCoordinate() == map->getEndX() && pmove->getYCoordinate() == map->getEndY()) {
-		return true;
-	}
-	return false;
-}
 
-bool Game::dead(Player * player ){
-	if (player->getHealth() < 1) {
-		return true;
-	}
-	return false;
-}
 
-Direction Game::moveSelection(Move action)
-{
-	switch (action) {
-	case move_up:
-		std::cout << "^\n";
-		return UP;
-
-	case move_left:
-		std::cout << "<\n";
-		return LEFT;
-
-	case move_right:
-		std::cout << ">\n";
-		return RIGHT;
-
-	case move_down:
-		std::cout << "v\n";
-		return DOWN;
-	default:
-		return NONE;
-	}
-}
 
 

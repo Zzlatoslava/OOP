@@ -26,7 +26,11 @@ void Cell::setEventCell(EventInterface* newEvent) {
 void Cell::workingEvent() {
 	if (this->event != nullptr) {
 		this->event->someEvent();
-		this->event = nullptr;
+		
+		
+		if (event->getID() != 1) {
+			this->event = nullptr;
+		}
 	}
 
 }
