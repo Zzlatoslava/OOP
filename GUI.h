@@ -17,6 +17,7 @@ private:
 	sf::Texture textureCLeft;
 	sf::Texture textureCRight;
 	sf::Texture textureWater;
+	sf::Texture textureFish;
 
 
 	sf::Sprite background;
@@ -27,6 +28,7 @@ private:
 	sf::Sprite catRight;
 	sf::Sprite cat;
 	sf::Sprite waterS;
+	sf::Sprite fishS;
 
 	float x = 315.f;
 	float y = 320.f;	
@@ -50,8 +52,8 @@ public:
 	Commands levelGame(Move move = Default);
 	void moveCat(Move move);
 	void water();
-	sf::Sprite heart();
-	sf::Sprite fish();
+	void heart();
+	void fish();
 
 	
 	

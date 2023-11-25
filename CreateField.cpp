@@ -151,8 +151,8 @@ void CreateField::createLevel() {
 		this->setEventCF(reducedHealth, 3);
 		/*for (int i = 0; i < 9; i++) {
 			field->setEvent(reducedHealth, 2, i);
-		}
-		this->setEventCF(collectPoint, SCORE);*/
+		}*/
+		this->setEventCF(collectPoint, SCORE);
 		
 	}
 	else if (level == 2){

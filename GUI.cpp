@@ -12,6 +12,7 @@ GUI::GUI(Tracking* mTracking) {
     cat = catBack;
     water();
     level();
+    fish();
 
     
 }
@@ -357,11 +358,15 @@ Commands GUI::levelGame(Move move) {
                 tmp = tracking->getEvent(x, y);
                 switch (tmp) {
                 case Reduced:
-
                     waterS.setPosition(90.f + x * 40.f, 95.f + y * 40.f);
                     window.draw(waterS);
-
                     break;
+
+                case Collect:
+                    fishS.setPosition(90.f + x * 40.f, 95.f + y * 40.f);
+                    window.draw(fishS);
+                    break;
+
                 default:
                     break;
                 }
@@ -415,6 +420,16 @@ void GUI::water()
 
     waterS.setTexture(textureWater);
     //waterS.setOrigin(20.f, 21.f);
+}
+
+void GUI::fish()
+{
+    if (!textureFish.loadFromFile("Image/fish.png"))
+    {
+        throw "Image loading error\n";
+    }
+
+    fishS.setTexture(textureFish);
 }
 
 
