@@ -15,4 +15,5 @@ public:
 	void setEventCell(EventInterface* newEvent);
 	void workingEvent();
 	bool isEventCell();
+	void clearEvent();
 };

@@ -11,6 +11,9 @@ void InputList::InputSettingsReaderL()
 	for (auto start{ commands.begin() }; start != commands.end(); start++) {
 		std::cout << *start << ":";
 		key = _getch();
+		if (keyMap.find(key) != keyMap.end()) {
+			throw "A repeated character is entered\n";
+		}
 		keyMap[key] = *start;
 	}
 	std::cout << "\n";

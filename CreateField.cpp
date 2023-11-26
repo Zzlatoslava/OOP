@@ -153,6 +153,13 @@ void CreateField::createLevel() {
 			field->setEvent(reducedHealth, 2, i);
 		}*/
 		this->setEventCF(collectPoint, SCORE);
+
+		for (int x = 25; x <= 29; x++) {
+			for (int y = 9; y <= 12; y++) {
+				field->setPassability(x, y, false);
+				field->setPassability(x, y, false);
+			}
+		}
 		
 	}
 	else if (level == 2){
@@ -160,13 +167,19 @@ void CreateField::createLevel() {
 		auto* collectPoint = new CollectAPoint(movement);
 		this->setEventCF(collectPoint, SCORE);
 		auto* teleport = new Teleport(movement);
-		field->setPassability(7, 9);
-		field->setEvent(teleport, 7, 9);
+		field->setPassability(27, 6);
+		field->setEvent(teleport, 27, 6);
+		
 		auto* addingHealth = new AddingHealth(movement);
 		this->setEventCF(addingHealth, 5);
 		auto* reducedHeath = new ReducedHealth(movement);
 		this->setEventCF(reducedHeath, 3);
-		
+		for (int x = 25; x <= 29; x++) {
+			for (int y = 9; y <= 12; y++) {
+				field->setPassability(x, y, true);
+				field->setPassability(x, y, true);
+			}
+		}
 	}
 	else if (level == 3) {
 		for (int i = 0; i < field->getHeight(); i++) {

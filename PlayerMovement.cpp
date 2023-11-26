@@ -57,7 +57,9 @@ void PlayerMovement::increaseHealth(int addHealth) {
     if (currentHealth + addHealth > HEALTH) {
         player->setHealth(HEALTH);
     }
-    player->setHealth(currentHealth + addHealth);
+    else {
+        player->setHealth(currentHealth + addHealth);
+    }
     
 }
 void PlayerMovement::decreaseHealth(int decreaseHealth) {
@@ -68,7 +70,12 @@ void PlayerMovement::decreaseHealth(int decreaseHealth) {
 void PlayerMovement::increaseScore(int addScore) {
     
     int currentScore = player->getScore();
-    player->setScore(currentScore + addScore);
+    if (currentScore + addScore > HEALTH) {
+        player->setHealth(HEALTH);
+    }
+    else {
+        player->setScore(currentScore + addScore);
+    }
     
 }
 int PlayerMovement::getHealth() const {

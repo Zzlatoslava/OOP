@@ -18,6 +18,8 @@ private:
 	sf::Texture textureCRight;
 	sf::Texture textureWater;
 	sf::Texture textureFish;
+	sf::Texture textureHeart;
+	sf::Texture textureTeleport;
 
 
 	sf::Sprite background;
@@ -29,9 +31,8 @@ private:
 	sf::Sprite cat;
 	sf::Sprite waterS;
 	sf::Sprite fishS;
-
-	float x = 315.f;
-	float y = 320.f;	
+	sf::Sprite heartS;
+	sf::Sprite teleportS;
 	Tracking* tracking;
 
 
@@ -49,11 +50,12 @@ public:
 	void cat_Back();
 	void cat_Left();
 	void cat_Right();
-	Commands levelGame(Move move = Default);
+	Commands levelGame(int newX, int newY, Move move = Default);
 	void moveCat(Move move);
 	void water();
 	void heart();
 	void fish();
+	void teleport();
 
 	
 	

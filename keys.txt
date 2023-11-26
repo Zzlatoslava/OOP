@@ -2,4 +2,3 @@ w move_up
 a move_left
 s move_down
 d move_right
-x escape

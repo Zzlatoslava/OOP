@@ -9,5 +9,6 @@ enum Commands {
 	LEVEL_WIN,
 	END,
 	GAME_OVER,
-	EXIT
+	EXIT,
+	LEVEL
 };

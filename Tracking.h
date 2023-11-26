@@ -15,7 +15,7 @@ class Tracking
 {
 private:
 	Player* p;
-	GameField* map; 
+	GameField* map;
 	PlayerMovement* nav;
 	int level;
 	FileReader file;
@@ -26,7 +26,7 @@ public:
 	Tracking(Player* p, GameField* map, PlayerMovement* nav, int mLevel = 1);
 
 	bool winGame();
-	bool movePlayer(Move * GUImove);
+	bool movePlayer(Move* GUImove);
 	Direction moveSelection(Move action);
 	void printIndicators();
 	bool dead();
@@ -40,4 +40,3 @@ public:
 
 
 };
-

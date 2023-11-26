@@ -9,10 +9,12 @@ GUI::GUI(Tracking* mTracking) {
     cat_Back();
     cat_Left();
     cat_Right();
-    cat = catBack;
+    cat = catBefore;
     water();
     level();
     fish();
+    heart();
+    teleport();
 
     
 }
@@ -274,7 +276,7 @@ Commands GUI::gameOverWin(){
 
 void GUI::level()
 {
-    if (!textureL.loadFromFile("Image/flat.png"))
+    if (!textureL.loadFromFile("Image/flat_2.png"))
     {
         throw "Image loading error\n";
     }
@@ -332,25 +334,20 @@ void GUI::cat_Right()
     catRight.setOrigin(35.f, 35.f);
 }
 
-Commands GUI::levelGame(Move move) {
+Commands GUI::levelGame(int newX, int newY, Move move) {
 
 
-    //cat.setPosition(x, y);
-    //Move GUIMove;
+    sf::Event event;
     
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-                return EXIT;
-            }
-
-
+    while (window.pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed) {
+            window.close();
+            return EXIT;
         }
-
-        window.draw(backgroundL);
+        }
+    
+    window.draw(backgroundL);
 
         Event tmp;
         for (int y = 0; y < MAX_HEIGHT; y++) {
@@ -358,14 +355,22 @@ Commands GUI::levelGame(Move move) {
                 tmp = tracking->getEvent(x, y);
                 switch (tmp) {
                 case Reduced:
-                    waterS.setPosition(90.f + x * 40.f, 95.f + y * 40.f);
+                    waterS.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
                     window.draw(waterS);
                     break;
 
                 case Collect:
-                    fishS.setPosition(90.f + x * 40.f, 95.f + y * 40.f);
+                    fishS.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
                     window.draw(fishS);
                     break;
+
+                case Adding:
+                    heartS.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
+                    window.draw(heartS);
+                    break;
+                case Teleport:
+                    teleportS.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
+                    window.draw(teleportS);
 
                 default:
                     break;
@@ -373,33 +378,36 @@ Commands GUI::levelGame(Move move) {
             }
         }
         moveCat(move);
-        cat.setPosition(x, y);
+        cat.setPosition(120.f + newX * 40.f, 125.f + newY * 40.f);
 
 
         window.draw(cat);
         window.display();
-       
-}
+        }
+
+        
+
+    
+
 
 
 void GUI::moveCat(Move move) {
     switch (move) {
     case move_up:
-        y -= 40.f;
+        
         cat = catBack;
         break;
     case move_down:
 
-        y += 40.f;
         cat = catBefore;
         break;
     case move_left:
-        x -= 40.f;
+        
         cat = catLeft;
 
         break;
     case move_right:
-        x += 40.f;
+        
         cat = catRight;
         break;
     case Default:
@@ -419,7 +427,17 @@ void GUI::water()
     }
 
     waterS.setTexture(textureWater);
-    //waterS.setOrigin(20.f, 21.f);
+    
+}
+
+void GUI::heart()
+{
+    if (!textureHeart.loadFromFile("Image/heart.png"))
+    {
+        throw "Image loading error\n";
+    }
+
+    heartS.setTexture(textureHeart);
 }
 
 void GUI::fish()
@@ -432,16 +450,12 @@ void GUI::fish()
     fishS.setTexture(textureFish);
 }
 
+void GUI::teleport()
+{
+    if (!textureTeleport.loadFromFile("Image/teleport.png"))
+    {
+        throw "Image loading error\n";
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    teleportS.setTexture(textureTeleport);
+}

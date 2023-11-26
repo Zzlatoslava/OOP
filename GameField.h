@@ -36,5 +36,6 @@ public:
 	EventInterface& getEvent(int x, int y);
 	bool isEvent(int x, int y);
 	void activeEvent(int x, int y);
+	void updateMap();
 
 };

@@ -9,12 +9,13 @@ Move InputReader::read(std::map<int, std::string>* KeyConfig) {
     if (it != KeyConfig->end()) {
         if (KeyConfig->find(key)->second == "move_up")
             return move_up;
-        if (KeyConfig->find(key)->second == "move_left")
+        else if (KeyConfig->find(key)->second == "move_left")
             return move_left;
-        if (KeyConfig->find(key)->second == "move_down")
+        else if (KeyConfig->find(key)->second == "move_down")
             return move_down;
-        if (KeyConfig->find(key)->second == "move_right")
+        else if (KeyConfig->find(key)->second == "move_right")
             return move_right;
+        
        
     }
     if (key == 27)

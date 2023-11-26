@@ -204,8 +204,25 @@ bool GameField::isEvent(int x, int y) {
     return false;
 }
 
+void GameField::updateMap()
+{
+    for (int y = 0; y < this->height; y++) {
+        for (int x = 0; x < this->width; x++) {
+            if (isEvent(x, y)) {
+                cells[y][x].clearEvent();
+            }
+        }
+    }
+}
+
 void GameField::activeEvent(int x, int y) {
-    cells[y][x].workingEvent();
+    if (cells[y][x].isEventCell()) {
+        if (cells[y][x].getEvent().getID() == 4) {
+            setPassability(24, 10);
+            setPassability(24, 11);
+        }
+        cells[y][x].workingEvent();
+    }
 }
 
 

@@ -1,30 +1,30 @@
 #include "Tracking.h"
 
 
-Tracking::Tracking(Player* player, GameField* nMap, PlayerMovement* nNav, int mLevel )
+Tracking::Tracking(Player* player, GameField* nMap, PlayerMovement* nNav, int mLevel)
 {
-	if (player == nullptr || nMap == nullptr || nNav == nullptr) {
-		throw "Error in creating a Tracking class object\n";
-	}
-	this->p = player;
-	this->map = nMap;
-	this->nav = nNav;
+    if (player == nullptr || nMap == nullptr || nNav == nullptr) {
+        throw "Error in creating a Tracking class object\n";
+    }
+    this->p = player;
+    this->map = nMap;
+    this->nav = nNav;
     this->level = mLevel;
     file.InputSettingsReader("keys.txt");
 }
 
 bool Tracking::winGame()
 {
-	if (nav->getXCoordinate() == map->getEndX() && nav->getYCoordinate() == map->getEndY()) {
-		return true;
-	}
+    if (nav->getXCoordinate() == map->getEndX() && nav->getYCoordinate() == map->getEndY()) {
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
-bool Tracking::movePlayer(Move * GUImove)
-{   
-    
+bool Tracking::movePlayer(Move* GUImove)
+{
+
     *GUImove = reader.read(file.getKeyList());
 
     return nav->move(moveSelection(*GUImove));
@@ -51,7 +51,7 @@ Direction Tracking::moveSelection(Move action)
     default:
         return NONE;
     }
-	
+
 }
 
 void Tracking::printIndicators()
@@ -68,7 +68,7 @@ bool Tracking::dead()
         return true;
     }
     return false;
-    
+
 }
 
 int Tracking::getLevel()
@@ -83,7 +83,7 @@ void Tracking::setLevel(int mLevel)
 
 Event Tracking::getEvent(int x, int y)
 {
-   
+
     if (map->isEvent(x, y)) {
         int id = map->getEvent(x, y).getID();
         switch (id) {
@@ -105,9 +105,7 @@ void Tracking::update()
     p->setHealth(HEALTH);
     nav->setCoordinates(map->getStartX(), map->getStartY());
     totalScore += p->getScore();
-    map->~GameField();
-    GameField *nMap;
-    map = nMap;
+    //map->~GameField();
+   // map->updateMap();
 }
-
 
