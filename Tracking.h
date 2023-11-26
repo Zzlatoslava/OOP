@@ -7,6 +7,7 @@ enum Event {
 	Reduced = 1,
 	Adding = 2,
 	Collect = 3,
+	Teleport = 4,
 	None = 0
 };
 
@@ -19,6 +20,7 @@ private:
 	int level;
 	FileReader file;
 	InputReader reader;
+	int totalScore = 0;
 
 public:
 	Tracking(Player* p, GameField* map, PlayerMovement* nav, int mLevel = 1);
@@ -33,7 +35,7 @@ public:
 	void setLevel(int mLevel);
 
 	Event getEvent(int x, int y);
-	
+	void update();
 
 
 

@@ -58,6 +58,8 @@ void Tracking::printIndicators()
 {
     std::cout << "Score: " << p->getScore() << "\n";
     std::cout << "Health: " << p->getHealth() << "\n";
+    std::cout << "X: " << nav->getXCoordinate() << "\n";
+    std::cout << "Y: " << nav->getYCoordinate() << "\n";
 }
 
 bool Tracking::dead()
@@ -88,12 +90,24 @@ Event Tracking::getEvent(int x, int y)
         case 1:
             return Reduced;
         case 2:
-            return None;
+            return Adding;
         case 3:
-            return None;
+            return Collect;
+        case 4:
+            return Teleport;
         }
     }
     return None;
+}
+
+void Tracking::update()
+{
+    p->setHealth(HEALTH);
+    nav->setCoordinates(map->getStartX(), map->getStartY());
+    totalScore += p->getScore();
+    map->~GameField();
+    GameField *nMap;
+    map = nMap;
 }
 
 
