@@ -15,11 +15,11 @@ private:
     Player* player;
     int x, y;
     GameField* gameField;
-    bool isMove ;
+    bool isMove = false;
 
 public:
     PlayerMovement(Player* p,  GameField* field, int x = 0 , int y = 0);
-    bool move(Direction direction);
+    void move(Direction direction);
     void increaseHealth(int addHealth);
     void decreaseHealth(int amount);
     void increaseScore(int amount);

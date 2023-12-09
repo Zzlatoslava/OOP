@@ -10,8 +10,9 @@ Game::Game() {
 	GUI graphics(&tracking);
 	Commands command = START;
 	bool work = true;
-	
-	
+	FileReader file;
+	InputReader reader;
+	file.InputSettingsReader("keys.txt");
 	while (work) {
 
 		switch (command) {
@@ -37,13 +38,14 @@ Game::Game() {
 			graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate() );
 			Move move;
 			
-			do {
-
-
-
-				if (tracking.movePlayer(&move)) {
+			while (true) {
+				move = reader.read(file.getKeyList());
+				nav.move(tracking.moveSelection(move));
+				
+				if (tracking.movePlayer()) {
 					tracking.printIndicators();
-					graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), move);
+					command = graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), move);
+
 				}
 				if (move == escape) {
 					command = START;
@@ -60,7 +62,8 @@ Game::Game() {
 				}
 
 
-			} while (true);
+			} ;
+			tracking.update();
 						
 			break;
 				
@@ -86,6 +89,8 @@ Game::Game() {
 		}
 	}
 }
+
+
 
 
 

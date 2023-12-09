@@ -9,48 +9,47 @@ PlayerMovement::PlayerMovement(Player* p, GameField* field ,int start_x, int sta
     x = start_x;
     y = start_y;
     gameField = field;
-    
+    isMove = false;
 
 }
-bool PlayerMovement::move(Direction direction) {
-    bool okey = false;
+void PlayerMovement::move(Direction direction) {
+    isMove = false;
     int newX = x;
     int newY = y;
     switch (direction) {
-    case UP:
-        newY--;
-        if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
-            okey = true;
-        }
-        break;
-    case DOWN:
-        newY++;
-        if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
-            okey = true;
-        }
-        break;
-    case LEFT:
-        newX--;
-        if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
-            okey = true;
-        }
-        break;
-    case RIGHT:
-        newX++;
-        if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
-            okey = true;
-        }
-        break;
-    default:
-        return okey;
-        break;
+        case UP:
+            newY--;
+            if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
+                isMove =  true;
+            }
+            break;
+        case DOWN:
+            newY++;
+            if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
+                isMove = true;
+            }
+            break;
+        case LEFT:
+            newX--;
+            if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
+                isMove = true;
+            }
+            break;
+        case RIGHT:
+            newX++;
+            if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
+                isMove = true;
+            }
+            break;
+        default:
+            break;
 
     }
-    if (okey) {
+    if (isMove) {
         this->setCoordinates(newX, newY);
-        gameField->activeEvent(this->x, this->y);
+        gameField->activeEvent(x, y);
     }
-    return okey;
+  
 }
 void PlayerMovement::increaseHealth(int addHealth) {
     
