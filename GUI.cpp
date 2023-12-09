@@ -5,16 +5,16 @@ GUI::GUI(Tracking* mTracking) {
         throw "Error in creating a GUI class object\n";
     }
     this->tracking = mTracking;
-    cat_Before();
-    cat_Back();
-    cat_Left();
-    cat_Right();
-    cat = catBefore;
-    water();
-    level();
-    fish();
-    heart();
-    teleport();
+    
+    cat = graphics.getCatBefore();
+    
+    window.setPosition(sf::Vector2i(260, 0));
+    sf::Image icon;
+    if (!icon.loadFromFile("image/heart.png"))
+    {
+        throw "Error";
+    }
+    window.setIcon(40, 40, icon.getPixelsPtr());
 
     
 }
@@ -23,12 +23,26 @@ GUI::GUI(Tracking* mTracking) {
 
 Commands GUI::startWin(){
 
+    graphics.setBackground("Image/Start.png");
+    
 
-    if (!texture.loadFromFile("Image/Start.png"))
+    sf::Font font;
+    if (!font.loadFromFile("Image/vcrosdmonorusbyd.ttf"))
     {
-        throw "Image loading error\n";
+        throw "Font loading error\n";
     }
-    background.setTexture(texture);
+
+    sf::Text text;
+    sf::Color color(166, 162, 184);
+    text.setFont(font);
+    text.setCharacterSize(40);
+    text.setFillColor(color);
+
+    text.setString("Score:" + std::to_string(tracking->getTotalScore()));
+    text.setPosition(40.f, 40.f);
+
+   
+
 
 
 
@@ -47,13 +61,13 @@ Commands GUI::startWin(){
                 {
                     int newX = event.mouseButton.x;
                     int newY = event.mouseButton.y;
-                    
+                    std::cout << "the left button was pressed" << std::endl;
+                    std::cout << "mouse x: " << newX << std::endl;
+                    std::cout << "mouse y: " << newY << std::endl;
 
                     if (750 < newX && newX < 1280 && 700 > newY && newY > 540) {
                         
-                        std::cout << "the left button was pressed" << std::endl;
-                        std::cout << "mouse x: " << newX << std::endl;
-                        std::cout << "mouse y: " << newY << std::endl;
+                        
                         
                         return SELECT_LEVEL;
                     }
@@ -69,7 +83,8 @@ Commands GUI::startWin(){
         }
 
         window.clear();
-        window.draw(background);
+        window.draw(graphics.getBackground());
+        window.draw(text);
         window.display();
     }
 
@@ -79,12 +94,8 @@ Commands GUI::startWin(){
 Commands GUI::selectLevelWin(){
     
 
-    if (!texture.loadFromFile("Image/ChoiceLevel(s).png"))
-    {
-        throw "Image loading error\n";
-    }
-    background.setTexture(texture);
-
+    graphics.setBackground("Image/ChoiceLevel(s).png");
+    
     while (window.isOpen())
     {
         sf::Event event;
@@ -128,7 +139,7 @@ Commands GUI::selectLevelWin(){
             }
         }
         window.clear();
-        window.draw(background);
+        window.draw(graphics.getBackground());
         window.display();
     }
 
@@ -137,12 +148,33 @@ Commands GUI::selectLevelWin(){
 Commands GUI::afterLevelWin(int num_level, int max_level){
     
    
-    if (!texture.loadFromFile("Image/Win.png"))
-    {
-        throw "Image loading error\n";
-    }
-    background.setTexture(texture);
+    graphics.setBackground("Image/Win.png");
+    
 
+
+    sf::Font font;
+    if (!font.loadFromFile("Image/vcrosdmonorusbyd.ttf"))
+    {
+        throw "Font loading error\n";
+    }
+
+    sf::Text text;
+    sf::Text textT;
+    sf::Color color(166, 162, 184);
+    text.setFont(font);
+    text.setCharacterSize(70); 
+    text.setFillColor(color);
+
+    textT.setFont(font);
+    textT.setCharacterSize(70);
+    textT.setFillColor(color);
+
+    text.setString("Score:" + std::to_string(tracking->getScore()));
+    text.setPosition(530.f, 315.f);
+
+    textT.setString("Total score:" + std::to_string(tracking->getTotalScore() + tracking->getScore()));
+    textT.setPosition(360.f, 455.f);
+    
 
 
     while (window.isOpen())
@@ -166,17 +198,17 @@ Commands GUI::afterLevelWin(int num_level, int max_level){
                     std::cout << "mouse x: " << newX << std::endl;
                     std::cout << "mouse y: " << newY << std::endl;
 
-                    if (newX > 490 && newX < 910) {
-                        if (newY > 375 && newY < 520) {//первая кнопка
+                    if (newY > 812 && newY < 972) {
+                        if (newX > 965 && newX < 1345) {//первая кнопка
                             if (num_level < max_level) {
-                                return LEVEL_2;
+                                tracking->setLevel(2);
+                                return LEVEL;
                             }
                             else {
                                 return END;
                             }
                         }
-                        if (newY > 610 && newY < 760) {//вторая кнопка
-                            
+                        if (newX > 78 && newX < 460) {//вторая кнопка
                             return START;
                         }
                     }
@@ -185,7 +217,11 @@ Commands GUI::afterLevelWin(int num_level, int max_level){
         }
 
         window.clear();
-        window.draw(background);
+        window.draw(graphics.getBackground());
+        window.draw(text);
+
+        
+        window.draw(textT);
         window.display();
     }
 }
@@ -193,12 +229,8 @@ Commands GUI::afterLevelWin(int num_level, int max_level){
 Commands GUI::endWin(){
     
 
-    if (!texture.loadFromFile("Image/End.png"))
-    {
-        throw "Image loading error\n";
-    }
-    background.setTexture(texture);
-
+    graphics.setBackground("Image/End.png");
+    
     while (window.isOpen())
     {
         sf::Event event;
@@ -228,19 +260,15 @@ Commands GUI::endWin(){
         }
 
         window.clear();
-        window.draw(background);
+        window.draw(graphics.getBackground());
         window.display();
     }
 
 }
 
 Commands GUI::gameOverWin(){
-    if (!texture.loadFromFile("Image/Game Over.png"))
-    {
-        throw "Image loading error\n";
-    }
-    background.setTexture(texture);
-
+    graphics.setBackground("Image/Game Over.png");
+    
     
 
     while (window.isOpen())
@@ -265,7 +293,7 @@ Commands GUI::gameOverWin(){
         }
 
         window.clear();
-        window.draw(background);
+        window.draw(graphics.getBackground());
         window.display();
     }
 
@@ -274,69 +302,13 @@ Commands GUI::gameOverWin(){
 
 
 
-void GUI::level()
-{
-    if (!textureL.loadFromFile("Image/flat_2.png"))
-    {
-        throw "Image loading error\n";
-    }
-    backgroundL.setTexture(textureL);
-    
-
-
-}
-
-void GUI::cat_Before()
-{
-
-    if (!textureCBefore.loadFromFile("Image/cat_1.png"))
-    {
-        throw "Image loading error\n";
-    }
-
-    catBefore.setTexture(textureCBefore);
-    catBefore.setOrigin(35.f, 35.f);
-
-
-}
-
-void GUI::cat_Back()
-{
-    if (!textureCBack.loadFromFile("Image/cat_2.png"))
-    {
-        throw "Image loading error\n";
-    }
-
-    catBack.setTexture(textureCBack);
-    catBack.setOrigin(35.f, 35.f);
-}
-
-void GUI::cat_Left()
-{
-    if (!textureCLeft.loadFromFile("Image/cat_3.png"))
-    {
-        throw "Image loading error\n";
-    }
-
-    catLeft.setTexture(textureCLeft);
-    catLeft.setOrigin(35.f, 35.f);
-
-}
-
-void GUI::cat_Right()
-{
-    if (!textureCRight.loadFromFile("Image/cat_4.png"))
-    {
-        throw "Image loading error\n";
-    }
-
-    catRight.setTexture(textureCRight);
-    catRight.setOrigin(35.f, 35.f);
-}
 
 Commands GUI::levelGame(int newX, int newY, Move move) {
-
-
+    auto fish = graphics.getFish();
+    auto heart = graphics.getHeart();
+    auto water = graphics.getWater();
+    auto teleport = graphics.getTeleport();
+    
     sf::Event event;
     
     while (window.pollEvent(event))
@@ -347,7 +319,7 @@ Commands GUI::levelGame(int newX, int newY, Move move) {
         }
         }
     
-    window.draw(backgroundL);
+    window.draw(graphics.getLevel());
 
         Event tmp;
         for (int y = 0; y < MAX_HEIGHT; y++) {
@@ -355,27 +327,35 @@ Commands GUI::levelGame(int newX, int newY, Move move) {
                 tmp = tracking->getEvent(x, y);
                 switch (tmp) {
                 case Reduced:
-                    waterS.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
-                    window.draw(waterS);
+                    water.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
+                    window.draw(water);
                     break;
 
                 case Collect:
-                    fishS.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
-                    window.draw(fishS);
+                    fish.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
+                    window.draw(fish);
                     break;
 
                 case Adding:
-                    heartS.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
-                    window.draw(heartS);
+                    heart.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
+                    window.draw(heart);
                     break;
                 case Teleport:
-                    teleportS.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
-                    window.draw(teleportS);
+                    teleport.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
+                    window.draw(teleport);
 
                 default:
                     break;
                 }
             }
+        }
+        for (int i = 0; i < tracking->getHealth(); i++) {
+            heart.setPosition(100.f + i * 40.f, 40.f );
+            window.draw(heart);
+        }
+        for (int i = tracking->getScore(); i > 0 ; i--) {
+            fish.setPosition(1300.f - i * 40.f, 40.f);
+            window.draw(fish);
         }
         moveCat(move);
         cat.setPosition(120.f + newX * 40.f, 125.f + newY * 40.f);
@@ -395,67 +375,26 @@ void GUI::moveCat(Move move) {
     switch (move) {
     case move_up:
         
-        cat = catBack;
+        cat = graphics.getCatBack();
         break;
     case move_down:
 
-        cat = catBefore;
+        cat = graphics.getCatBefore();
         break;
     case move_left:
         
-        cat = catLeft;
+        cat = graphics.getCatLeft();
 
         break;
     case move_right:
         
-        cat = catRight;
+        cat = graphics.getCatRight();
         break;
     case Default:
-        cat = catBack;
+        cat = graphics.getCatBack();
         break;
     
 
     }
 }
 
-void GUI::water()
-{
-
-    if (!textureWater.loadFromFile("Image/water.png"))
-    {
-        throw "Image loading error\n";
-    }
-
-    waterS.setTexture(textureWater);
-    
-}
-
-void GUI::heart()
-{
-    if (!textureHeart.loadFromFile("Image/heart.png"))
-    {
-        throw "Image loading error\n";
-    }
-
-    heartS.setTexture(textureHeart);
-}
-
-void GUI::fish()
-{
-    if (!textureFish.loadFromFile("Image/fish.png"))
-    {
-        throw "Image loading error\n";
-    }
-
-    fishS.setTexture(textureFish);
-}
-
-void GUI::teleport()
-{
-    if (!textureTeleport.loadFromFile("Image/teleport.png"))
-    {
-        throw "Image loading error\n";
-    }
-
-    teleportS.setTexture(textureTeleport);
-}

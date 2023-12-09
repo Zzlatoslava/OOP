@@ -200,6 +200,9 @@ EventInterface& GameField::getEvent(int x, int y) {
 }
 
 bool GameField::isEvent(int x, int y) {
+    if (x < 0 || y < 0 || y > MAX_HEIGHT || x > MAX_WIDTH) {
+        return false;
+    }
     if (cells[y][x].isEventCell()) { return true; }
     return false;
 }

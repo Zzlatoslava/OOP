@@ -133,7 +133,7 @@ void CreateField::createLevel() {
 			}
 		}
 
-		for (int x = 15; x <= 19; x++) {
+		for (int x = 14; x <= 19; x++) {
 			field->setPassability(x, 18, false);   //шкаф
 			field->setPassability(x, 19, false);
 		}
@@ -209,8 +209,13 @@ void CreateField::setEventCF(EventInterface* event, int quantity) {
 			int coordX = rand() % field->getWidth();
 			int coordY = rand() % field->getHeight();
 			if (field->getPassability(coordX, coordY) && not(field->isEvent(coordX, coordY))) {
-				field->setEvent(event, coordX, coordY);
-				flag++;
+				
+					
+					field->setEvent(event, coordX, coordY);
+					flag++;
+				
+				
+				
 			}
 		}
 	

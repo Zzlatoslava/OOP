@@ -18,18 +18,20 @@ private:
 	GameField* map;
 	PlayerMovement* nav;
 	int level;
-	FileReader file;
-	InputReader reader;
+	
 	int totalScore = 0;
 
 public:
 	Tracking(Player* p, GameField* map, PlayerMovement* nav, int mLevel = 1);
 
 	bool winGame();
-	bool movePlayer(Move* GUImove);
+	bool movePlayer();
 	Direction moveSelection(Move action);
 	void printIndicators();
 	bool dead();
+	int getHealth();
+	int getScore();
+	int getTotalScore();
 
 	int getLevel();
 	void setLevel(int mLevel);

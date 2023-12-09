@@ -18,7 +18,7 @@ void FileReader::InputSettingsReader(const std::string& filename) {
             if (!isCommand(line.substr(2))) {
                 throw "A repeated character is entered\n";
             }
-            
+
             char key = line[0];
             std::string command = line.substr(2);
             keyMap[key] = command;
@@ -45,7 +45,7 @@ bool FileReader::isCommand(std::string command)
     }
     return false;
 }
-    
+
 
 
 

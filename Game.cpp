@@ -6,12 +6,13 @@ Game::Game() {
 	GameField map;
 	PlayerMovement nav(&player, &map);
 	Tracking tracking(&player, &map, &nav);
-	
-
 	CreateField GMap(&map, &nav);
 	GUI graphics(&tracking);
 	Commands command = START;
 	bool work = true;
+	FileReader file;
+	InputReader reader;
+	file.InputSettingsReader("keys.txt");
 	while (work) {
 
 		switch (command) {
@@ -33,16 +34,19 @@ Game::Game() {
 			
 			GMap.setLevel(tracking.getLevel());
 			GMap.createLevel();
+
 			graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate() );
 			Move move;
+			
 			do {
-
+				move = reader.read(file.getKeyList());
+				nav.move(tracking.moveSelection(move));
 				
-				
-				if (tracking.movePlayer(&move)) {
+				if (tracking.movePlayer()) {
 					tracking.printIndicators();
-					graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), move);
+					command = graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), move);
 				}
+			
 				if (move == escape) {
 					command = START;
 
@@ -61,13 +65,14 @@ Game::Game() {
 			} while (true);
 			
 		
-			tracking.update();
+			
 			
 			break;
 				
 			
 		case LEVEL_WIN:
 			command = graphics.afterLevelWin(tracking.getLevel(), MAX_LEVEL);
+			tracking.update();
 			
 			break;
 		case END:

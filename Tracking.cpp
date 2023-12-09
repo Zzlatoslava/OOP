@@ -10,7 +10,7 @@ Tracking::Tracking(Player* player, GameField* nMap, PlayerMovement* nNav, int mL
     this->map = nMap;
     this->nav = nNav;
     this->level = mLevel;
-    file.InputSettingsReader("keys.txt");
+    
 }
 
 bool Tracking::winGame()
@@ -22,12 +22,10 @@ bool Tracking::winGame()
     return false;
 }
 
-bool Tracking::movePlayer(Move* GUImove)
+bool Tracking::movePlayer()
 {
 
-    *GUImove = reader.read(file.getKeyList());
-
-    return nav->move(moveSelection(*GUImove));
+    return nav->getIsMove();
 }
 
 Direction Tracking::moveSelection(Move action)
@@ -71,6 +69,21 @@ bool Tracking::dead()
 
 }
 
+int Tracking::getHealth()
+{
+    return p->getHealth();
+}
+
+int Tracking::getScore()
+{
+    return p->getScore();
+}
+
+int Tracking::getTotalScore()
+{
+    return this->totalScore;
+}
+
 int Tracking::getLevel()
 {
     return this->level;
@@ -105,7 +118,8 @@ void Tracking::update()
     p->setHealth(HEALTH);
     nav->setCoordinates(map->getStartX(), map->getStartY());
     totalScore += p->getScore();
+    p->setScore(0);
     //map->~GameField();
-   // map->updateMap();
+    map->updateMap();
 }
 

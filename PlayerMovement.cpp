@@ -11,45 +11,44 @@ PlayerMovement::PlayerMovement(Player* p, GameField* field ,int start_x, int sta
     gameField = field;
 
 }
-bool PlayerMovement::move(Direction direction) {
-    bool okey = false;
+void PlayerMovement::move(Direction direction) {
+   
     int newX = x;
     int newY = y;
     switch (direction) {
         case UP:
             newY--;
             if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
-                okey =  true;
+                isMove =  true;
             }
             break;
         case DOWN:
             newY++;
             if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
-                okey = true;
+                isMove = true;
             }
             break;
         case LEFT:
             newX--;
             if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
-                okey = true;
+                isMove = true;
             }
             break;
         case RIGHT:
             newX++;
             if (gameField->getPassability(newX, newY) && gameField->outOfField(newX, newY)) {
-                okey = true;
+                isMove = true;
             }
             break;
         default:
-            return okey;
             break;
 
     }
-    if (okey) {
+    if (isMove) {
         this->setCoordinates(newX, newY);
         gameField->activeEvent(this->x, this->y);
     }
-    return okey;
+  
 }
 void PlayerMovement::increaseHealth(int addHealth) {
     
@@ -70,8 +69,8 @@ void PlayerMovement::decreaseHealth(int decreaseHealth) {
 void PlayerMovement::increaseScore(int addScore) {
     
     int currentScore = player->getScore();
-    if (currentScore + addScore > HEALTH) {
-        player->setHealth(HEALTH);
+    if (currentScore + addScore > SCORE) {
+        player->setHealth(SCORE);
     }
     else {
         player->setScore(currentScore + addScore);
@@ -102,6 +101,11 @@ int PlayerMovement::getYCoordinate() { return this->y; }
 
 void PlayerMovement::setPassabilityGF(int x, int y){
     gameField->setPassability(x, y);
+}
+
+bool PlayerMovement::getIsMove()
+{
+    return isMove;
 }
 
 

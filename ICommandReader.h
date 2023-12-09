@@ -6,5 +6,5 @@ class ICommandReader {
 public:
     virtual void InputSettingsReader(const std::string& inputConfig) = 0;
 
-    
+
 };

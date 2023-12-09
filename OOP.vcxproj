@@ -150,6 +150,7 @@
     <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="ReadConsol.cpp" />
     <ClCompile Include="ReducedHealth.cpp" />
+    <ClCompile Include="RenderGUI.cpp" />
     <ClCompile Include="Teleport.cpp" />
     <ClCompile Include="Tracking.cpp" />
   </ItemGroup>
@@ -173,6 +174,8 @@
     <ClInclude Include="PlayerMovement.h" />
     <ClInclude Include="ReadConsol.h" />
     <ClInclude Include="ReducedHealth.h" />
+    <ClInclude Include="RenderGUI.h" />
+    <ClInclude Include="RenderingInterface.h" />
     <ClInclude Include="Teleport.h" />
     <ClInclude Include="Tracking.h" />
   </ItemGroup>
