@@ -10,7 +10,7 @@ Tracking::Tracking(Player* player, GameField* nMap, PlayerMovement* nNav, int mL
     this->map = nMap;
     this->nav = nNav;
     this->level = mLevel;
-    
+    file.InputSettingsReader("keys.txt");
 }
 
 bool Tracking::winGame()
@@ -22,10 +22,12 @@ bool Tracking::winGame()
     return false;
 }
 
-bool Tracking::movePlayer()
+bool Tracking::movePlayer(Move* GUImove)
 {
 
-    return nav->getIsMove();
+    *GUImove = reader.read(file.getKeyList());
+
+    return nav->move(moveSelection(*GUImove));
 }
 
 Direction Tracking::moveSelection(Move action)

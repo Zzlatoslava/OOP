@@ -343,6 +343,7 @@ Commands GUI::levelGame(int newX, int newY, Move move) {
                 case Teleport:
                     teleport.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
                     window.draw(teleport);
+                    break;
 
                 default:
                     break;
