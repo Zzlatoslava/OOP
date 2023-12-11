@@ -5,19 +5,22 @@ Game::Game() {
 	Player player;
 	GameField map;
 	PlayerMovement nav(&player, &map);
-	Tracking tracking(&player, &map, &nav);
+	FileReader file;
+	InputReader reader;
+	Tracking tracking(&player, &map, &nav, &reader);
 	CreateField GMap(&map, &nav);
 	GUI graphics(&tracking);
 	Commands command = START;
 	bool work = true;
-	FileReader file;
-	InputReader reader;
+	
+	Message message(&tracking,MessageTracker::OutputMode::Console, "game_log.txt");
 	file.InputSettingsReader("keys.txt");
 	while (work) {
 
 		switch (command) {
 		case START:
 			command = graphics.startWin();
+			
 			break;
 		case SELECT_LEVEL:
 			command = graphics.selectLevelWin();
@@ -34,36 +37,41 @@ Game::Game() {
 			
 			GMap.setLevel(tracking.getLevel());
 			GMap.createLevel();
-
+			message.newGame();
 			graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate() );
 			Move move;
 			
 			while (true) {
 				move = reader.read(file.getKeyList());
 				nav.move(tracking.moveSelection(move));
-				
 				if (tracking.movePlayer()) {
+					message.commandExecuted(tracking.moveToString(move));
 					tracking.printIndicators();
 					command = graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), move);
 
 				}
-				if (move == escape) {
+				else if (move == escape) {
 					command = START;
-
 					break;
 				}
+				else {
+					message.commandNotExecuted();
+				}
+				
 				if (tracking.dead()) {
 					command = GAME_OVER;
+					message.playerLoses();
 					break;
 				}
 				if (tracking.winGame()) {
 					command = LEVEL_WIN;
+					message.playerWins();
 					break;
 				}
 
 
 			} ;
-			tracking.update();
+			
 						
 			break;
 				

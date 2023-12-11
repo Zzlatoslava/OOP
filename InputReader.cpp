@@ -2,7 +2,7 @@
 
 
 Move InputReader::read(std::map<int, std::string>* KeyConfig) {
-    int key;
+    //int key;
     std::cout << "Press to key:\n";
     key = _getch();
     auto it = KeyConfig->find(key);
@@ -21,4 +21,9 @@ Move InputReader::read(std::map<int, std::string>* KeyConfig) {
     if (key == 27)
         return escape;
     return Default;// Если команда не найдена
+}
+
+int InputReader::getKey()
+{
+    return key;
 }

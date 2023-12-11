@@ -15,6 +15,7 @@ private:
 	sf::Texture textureFish;
 	sf::Texture textureHeart;
 	sf::Texture textureTeleport;
+	sf::Texture textureFishRed;
 
 	sf::Sprite background;
 	sf::Sprite backgroundL;
@@ -26,7 +27,7 @@ private:
 	sf::Sprite fishS;
 	sf::Sprite heartS;
 	sf::Sprite teleportS;
-
+	sf::Sprite fishRedS;
 public:
 	RenderGUI();
 	void setBackground(std::string);
@@ -38,6 +39,7 @@ public:
 	void water();
 	void heart();
 	void fish();
+	void fishRed();
 	void teleport();
 	sf::Sprite getBackground();
 	sf::Sprite getLevel();
@@ -48,5 +50,6 @@ public:
 	sf::Sprite getWater();
 	sf::Sprite getHeart();
 	sf::Sprite getFish();
+	sf::Sprite getFishRed();
 	sf::Sprite getTeleport();
 };

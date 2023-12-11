@@ -10,8 +10,6 @@ int main() {
 
 		Game game;
 		
-		
-		
 	}
 	catch (const char* error_message) {
 		std::cout << error_message << std::endl;

@@ -70,8 +70,8 @@ void PlayerMovement::decreaseHealth(int decreaseHealth) {
 void PlayerMovement::increaseScore(int addScore) {
     
     int currentScore = player->getScore();
-    if (currentScore + addScore > SCORE) {
-        player->setHealth(SCORE);
+    if (currentScore + addScore > MAX_SCORE) {
+        player->setScore(MAX_SCORE);
     }
     else {
         player->setScore(currentScore + addScore);
@@ -107,6 +107,27 @@ void PlayerMovement::setPassabilityGF(int x, int y){
 bool PlayerMovement::getIsMove()
 {
     return isMove;
+}
+
+void PlayerMovement::increaseDoubleScore(int addScore)
+{
+    int currentScore = player->getDoubleScore();
+    if (currentScore + addScore > MAX_SCORE) {
+        player->setDoubleScore(MAX_SCORE);
+    }
+    else {
+        player->setDoubleScore(currentScore + addScore);
+    }
+}
+
+int PlayerMovement::getDoubleScore() const
+{
+    return player->getDoubleScore();
+}
+
+void PlayerMovement::setDoubleScore(int newScore)
+{
+    this->player->setDoubleScore(newScore);
 }
 
 

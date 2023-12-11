@@ -2,12 +2,13 @@
 #include <iostream>
 
 
-Player::Player(int initialHealth, int initialScore) { //constructor
+Player::Player(int initialHealth, int initialScore, int newDoubleScore) { //constructor
     if (HEALTH < initialHealth < 0 || SCORE < initialScore < 0) {
         throw "Error in creating a Player class object \n";
     }
     this->health = initialHealth;
     this->score = initialScore;
+    this->doubleScore = newDoubleScore;
 }
 
 int Player::getHealth() const {
@@ -26,10 +27,20 @@ int Player::getScore() const{
 }
 
 void Player::setScore(int newScore) {
-    if (SCORE < newScore || newScore < 0) {
+    if (MAX_SCORE < newScore || newScore < 0) {
         throw "Invalid value score in setScore()\n";
         
     }
     score = newScore;
+}
+
+int Player::getDoubleScore() const
+{
+    return doubleScore;
+}
+
+void Player::setDoubleScore(int newScore)
+{
+    doubleScore = newScore;
 }
 

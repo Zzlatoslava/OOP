@@ -12,6 +12,7 @@ RenderGUI::RenderGUI()
     fish();
     heart();
     teleport();
+    fishRed();
 }
 
 void RenderGUI::setBackground(std::string filename)
@@ -107,6 +108,16 @@ void RenderGUI::fish()
     fishS.setTexture(textureFish);
 }
 
+void RenderGUI::fishRed()
+{
+    if (!textureFishRed.loadFromFile("Image/fish_red.png"))
+    {
+        throw "Image loading error\n";
+    }
+
+    fishRedS.setTexture(textureFishRed);
+}
+
 void RenderGUI::teleport()
 {
     if (!textureTeleport.loadFromFile("Image/teleport.png"))
@@ -160,6 +171,11 @@ sf::Sprite RenderGUI::getHeart()
 sf::Sprite RenderGUI::getFish()
 {
     return fishS;
+}
+
+sf::Sprite RenderGUI::getFishRed()
+{
+    return fishRedS;
 }
 
 sf::Sprite RenderGUI::getTeleport()

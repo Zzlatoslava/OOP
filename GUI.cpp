@@ -172,7 +172,7 @@ Commands GUI::afterLevelWin(int num_level, int max_level){
     text.setString("Score:" + std::to_string(tracking->getScore()));
     text.setPosition(530.f, 315.f);
 
-    textT.setString("Total score:" + std::to_string(tracking->getTotalScore() + tracking->getScore()));
+    textT.setString("Total score:" + std::to_string(tracking->getTotalScore() + tracking->getScore() +tracking->getTotalScore()));
     textT.setPosition(360.f, 455.f);
     
 
@@ -308,6 +308,7 @@ Commands GUI::levelGame(int newX, int newY, Move move) {
     auto heart = graphics.getHeart();
     auto water = graphics.getWater();
     auto teleport = graphics.getTeleport();
+    auto fishRed = graphics.getFishRed();
     
     sf::Event event;
     
@@ -344,11 +345,18 @@ Commands GUI::levelGame(int newX, int newY, Move move) {
                     teleport.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
                     window.draw(teleport);
                     break;
-
+                case Double:
+                    fishRed.setPosition(100.f + x * 40.f, 105.f + y * 40.f);
+                    window.draw(fishRed);
+                    break;
                 default:
                     break;
                 }
             }
+        }
+        for (int i = tracking->getDoubleScore() / 2; i > 0; i--) {
+            fishRed.setPosition(1290.f - i * 40.f, 30.f);
+            window.draw(fishRed);
         }
         for (int i = 0; i < tracking->getHealth(); i++) {
             heart.setPosition(100.f + i * 40.f, 40.f );
@@ -358,6 +366,7 @@ Commands GUI::levelGame(int newX, int newY, Move move) {
             fish.setPosition(1300.f - i * 40.f, 40.f);
             window.draw(fish);
         }
+        
         moveCat(move);
         cat.setPosition(120.f + newX * 40.f, 125.f + newY * 40.f);
 

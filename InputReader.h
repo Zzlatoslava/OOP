@@ -9,4 +9,7 @@
 class InputReader : public InputReaderI {
 public:
     Move read(std::map<int, std::string>* KeyConfig) override;
+    int getKey();
+private:
+    int key = 0;
 };

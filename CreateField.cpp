@@ -103,27 +103,32 @@ void CreateField::createLevel() {
 			}
 		}
 		for (int x = 24; x <= 29; x++) {
-			for (int y = 6; y <= 12; y++) {
+			for (int y = 6; y <= 8; y++) {
 				field->setPassability(x, y, false);
 				field->setPassability(x, y, false);    //кух гарнитур + стена
 			}
 		}
 		field->setPassability(19, 8, false);			// стена
 		field->setPassability(20, 8, false);
-
+		
 	}
 
 	{													//4
 		for (int y = 9; y <= 16; y++) {
-			field->setPassability(24, y, false);   //стена			
+			if (y != 10 && y != 11) {
+				field->setPassability(24, y, false);   //стена			
+			}
 		}
 
+	
 		for (int x = 25; x <= 29; x++) {
 			field->setPassability(x, 13, false);   //ванна+стена
 			field->setPassability(x, 14, false);
 		}
 		for (int x = 24; x <= 29; x++) {
 			field->setPassability(x, 19, false);   //cтена +ванна
+			field->setPassability(x, 18, false);
+
 		}
 
 		for (int x = 27; x <= 29; x++) {
@@ -137,6 +142,27 @@ void CreateField::createLevel() {
 			field->setPassability(x, 18, false);   //шкаф
 			field->setPassability(x, 19, false);
 		}
+
+
+		field->setPassability(24, 10, true);
+		field->setPassability(24, 11, true);
+
+
+		for (int x = 25; x <= 29; x++) {
+			for (int y = 9; y <= 12; y++) {
+				field->setPassability(x, y, true);
+				
+			}
+		}
+		for (int x = 28; x <= 29; x++) {
+			for (int y = 10; y <= 11; y++) {
+				field->setPassability(x, y, false);
+
+			}
+		}
+		field->setPassability(24, 16);
+		field->setPassability(25, 15);
+		field->setPassability(26, 15);
 	}
 
 	field->setStart(5, 5);
@@ -148,54 +174,55 @@ void CreateField::createLevel() {
 		auto* collectPoint = new CollectAPoint(movement);
 		
 		auto* reducedHealth = new ReducedHealth(movement);
-		this->setEventCF(reducedHealth, 3);
-		/*for (int i = 0; i < 9; i++) {
-			field->setEvent(reducedHealth, 2, i);
-		}*/
+		this->setEventCF(reducedHealth, 15);
 		this->setEventCF(collectPoint, SCORE);
 
-		for (int x = 25; x <= 29; x++) {
-			for (int y = 9; y <= 12; y++) {
-				field->setPassability(x, y, false);
-				field->setPassability(x, y, false);
-			}
-		}
+		/**/
 		
 	}
 	else if (level == 2){
 		std::cout << "Create 2 level..\n";
-		auto* collectPoint = new CollectAPoint(movement);
-		this->setEventCF(collectPoint, SCORE);
+		
 		auto* teleport = new Teleport(movement);
+		for (int x = 24; x <= 29; x++) {
+			for (int y = 9; y <= 12; y++) {
+				field->setPassability(x, y, false);
+				field->setPassability(x, y, false);
+			}
+		}
 		field->setPassability(27, 6);
 		field->setEvent(teleport, 27, 6);
-		
+
+		auto* collectPoint = new CollectAPoint(movement);
+		this->setEventCF(collectPoint, SCORE);
 		auto* addingHealth = new AddingHealth(movement);
 		this->setEventCF(addingHealth, 5);
 		auto* reducedHeath = new ReducedHealth(movement);
 		this->setEventCF(reducedHeath, 3);
+
+
 		for (int x = 25; x <= 29; x++) {
 			for (int y = 9; y <= 12; y++) {
 				field->setPassability(x, y, true);
-				field->setPassability(x, y, true);
-			}
-		}
-	}
-	else if (level == 3) {
-		for (int i = 0; i < field->getHeight(); i++) {
-			for (int j = 0; j < field->getWidth(); j++) {
-				field->setPassability(j, i);
-			}
 
-		}
-		field->setStart(0, 0);
-		field->setEnd(29, 19);
-		auto* collectPoint = new CollectAPoint(movement);
-		for (int x = 2; x <= 27; x++) {
-			for (int y = 2; y <= 17; y++) {
-				field->setEvent(collectPoint, x, y);
 			}
 		}
+		for (int x = 28; x <= 29; x++) {
+			for (int y = 10; y <= 11; y++) {
+				field->setPassability(x, y, false);
+
+			}
+		}
+
+		auto* doubleScore = new DoubleScore(movement);
+		
+		for (int x = 25; x <= 27; x++) {
+			for (int y = 9; y <= 12; y++) {
+				field->setEvent(doubleScore,x, y);
+
+			}
+		}
+		
 	}
 	else {
 		throw "There is no such level, wait for the update";

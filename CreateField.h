@@ -3,6 +3,7 @@
 #include "CollectAPoint.h"
 #include "ReducedHealth.h"
 #include "Teleport.h"
+#include "DoubleScore.h"
 #include <iostream>
 #define MAX_LEVEL 2
 

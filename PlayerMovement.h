@@ -32,6 +32,9 @@ public:
     int getYCoordinate();
     void setPassabilityGF(int x, int y);
     bool getIsMove();
+    void increaseDoubleScore(int amount);
+    int getDoubleScore() const;
+    void setDoubleScore(int newScore);
     
 
     
