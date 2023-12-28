@@ -169,13 +169,14 @@ void CreateField::createLevel() {
 	}
 
 	field->setStart(5, 5);
-	field->setEnd(17, 0);
+	
 	movement->setCoordinates(field->getStartX(), field->getStartY());
 	Miroslava.setCoord(10, 12);
 	Radmila.setCoord(21,9);
 
 	if (this->level == 1) {
-		std::cout << "Create 1 level..\n";
+		field->setEnd(17, 0);
+		//std::cout << "Create 1 level..\n";
 		auto* collectPoint = new CollectAPoint(movement);
 		
 		auto* reducedHealth = new ReducedHealth(movement);
@@ -188,8 +189,8 @@ void CreateField::createLevel() {
 		
 	}
 	else if (level == 2){
-		std::cout << "Create 2 level..\n";
-		
+		//std::cout << "Create 2 level..\n";
+		field->setEnd(20, 1);
 		auto* teleport = new Teleport(movement);
 		for (int x = 24; x <= 29; x++) {
 			for (int y = 9; y <= 12; y++) {

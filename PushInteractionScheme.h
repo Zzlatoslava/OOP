@@ -22,26 +22,26 @@ void PushInteractionScheme::Interact(T& enemy)
             int randChoice = rand() % 4 + 1;
             switch (randChoice) {
             case 1:
-                pY--;
+                pY-=2;
                 if (enemy.getField().getPassability(pX, pY) && enemy.getField().outOfField(pX, pY)) {
                     flag = false;
                 }
                 break;
 
             case 2:
-                pY++;
+                pY+=2;
                 if (enemy.getField().getPassability(pX, pY) && enemy.getField().outOfField(pX, pY)) {
                     flag = false;
                 }
                 break;
             case 3:
-                pX++;
+                pX+=2;
                 if (enemy.getField().getPassability(pX, pY) && enemy.getField().outOfField(pX, pY)) {
                     flag = false;
                 }
                 break;
             case 4:
-                pX--;
+                pX-=2;
                 if (enemy.getField().getPassability(pX, pY) && enemy.getField().outOfField(pX, pY)) {
                     flag = false;
                 }

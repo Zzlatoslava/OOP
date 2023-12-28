@@ -11,7 +11,9 @@ enum Commands {
 	GAME_OVER,
 	EXIT,
 	LEVEL, 
-	TITLES1,
-	TITLES2, 
-	TITLES
+	TITLES,
+	W,
+	A,
+	S,
+	D
 };

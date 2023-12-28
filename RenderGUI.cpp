@@ -27,7 +27,7 @@ void RenderGUI::setBackground(std::string filename)
 
 void RenderGUI::level()
 {
-    if (!textureL.loadFromFile("Image/flat_2.png"))
+    if (!textureL.loadFromFile("Image/flat.png"))
     {
         throw "Image loading error\n";
     }

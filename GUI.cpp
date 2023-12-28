@@ -61,13 +61,9 @@ Commands GUI::startWin(){
                 {
                     int newX = event.mouseButton.x;
                     int newY = event.mouseButton.y;
-                    std::cout << "the left button was pressed" << std::endl;
-                    std::cout << "mouse x: " << newX << std::endl;
-                    std::cout << "mouse y: " << newY << std::endl;
+                    
 
                     if (750 < newX && newX < 1280 && 700 > newY && newY > 540) {
-                        
-                        
                         
                         return SELECT_LEVEL;
                     }
@@ -282,9 +278,7 @@ Commands GUI::endWin(){
                 {
                     int newX = event.mouseButton.x;
                     int newY = event.mouseButton.y;
-                    std::cout << "the left button was pressed" << std::endl;
-                    std::cout << "mouse x: " << newX << std::endl;
-                    std::cout << "mouse y: " << newY << std::endl;
+                    
 
                     if (newX > 490 && newX < 910 && newY > 610 && newY < 760) {
                         return START;
@@ -346,18 +340,51 @@ Commands GUI::levelGame(int newX, int newY, Coord xyM, Coord xyR, Move move ) {
     auto enemyM = graphics.getEnemyM();
     auto enemyR = graphics.getEnemyR();
     
-    sf::Event event;
-    
-    while (window.pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed) {
-            window.close();
-            return EXIT;
-        }
-        }
-    
-    window.draw(graphics.getLevel());
+    while (window.isOpen()) {
 
+        sf::Event event;
+
+
+        while (window.pollEvent(event))
+        {
+
+
+
+            if (event.type == sf::Event::Closed) {
+                window.close();
+                return EXIT;
+            }
+            if (event.type == sf::Event::KeyPressed)
+            {
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+                {
+                    return W;
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+                {
+                    return A;
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+                {
+                    return S;
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+                {
+                    return D;
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                {
+                    return START;
+                }
+
+            }
+
+
+
+
+        }
+        window.draw(graphics.getLevel());
         Event tmp;
         for (int y = 0; y < MAX_HEIGHT; y++) {
             for (int x = 0; x < MAX_WIDTH; x++) {
@@ -395,14 +422,14 @@ Commands GUI::levelGame(int newX, int newY, Coord xyM, Coord xyR, Move move ) {
             window.draw(fishRed);
         }
         for (int i = 0; i < tracking->getHealth(); i++) {
-            heart.setPosition(100.f + i * 40.f, 40.f );
+            heart.setPosition(100.f + i * 40.f, 40.f);
             window.draw(heart);
         }
-        for (int i = tracking->getScore(); i > 0 ; i--) {
+        for (int i = tracking->getScore(); i > 0; i--) {
             fish.setPosition(1300.f - i * 40.f, 40.f);
             window.draw(fish);
         }
-        
+
         moveCat(move);
         cat.setPosition(120.f + newX * 40.f, 125.f + newY * 40.f);
         enemyM.setPosition(120.f + xyM.x * 40.f, 125.f + xyM.y * 40.f);
@@ -412,7 +439,10 @@ Commands GUI::levelGame(int newX, int newY, Coord xyM, Coord xyR, Move move ) {
         window.draw(enemyM);
         window.draw(enemyR);
         window.display();
-        }
+
+    }
+    
+}
 
         
 

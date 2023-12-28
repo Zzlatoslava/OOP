@@ -48,42 +48,48 @@ Game::Game() {
 			GMap.setLevel(tracking.getLevel());
 			GMap.createLevel();
 			
-			graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), GMap.getCoordM(), GMap.getCoordR());
-			Move move;
 			
-			while (true) {
-				move = reader.read(file.getKeyList());
+			Move move;
+			move = Default;
+			
+			
+			while (command != END && command != START  && command != EXIT) {
+				command = graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), GMap.getCoordM(), GMap.getCoordR(), move);
+				//move = reader.read(file.getKeyList());
+				if (command == W)move = move_up;
+				else if (command == A) move = move_left;
+				else if (command == S) move = move_down;
+				else if (command == D) move = move_right;
+				else move = Default;
+
+
 				nav.move(tracking.moveSelection(move));
 				if (tracking.movePlayer()) {
 					GMap.moveEnemyM();
 					GMap.moveEnemyR();
 					tracking.printIndicators();
-					command = graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), GMap.getCoordM(), GMap.getCoordR(), move);
+					//command = graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), GMap.getCoordM(), GMap.getCoordR(), move);
+					if (tracking.dead()) {
+						command = GAME_OVER;
 
-				}
-				else if (move == escape) {
-					command = START;
-					tracking.update();
-					break;
+						tracking.update();
+						break;
+					}
+					if (tracking.winGame()) {
+						command = LEVEL_WIN;
+
+						break;
+					}
 				}
 				
-				
-				if (tracking.dead()) {
-					command = GAME_OVER;
-					
-					tracking.update();
-					break;
-				}
-				if (tracking.winGame()) {
-					command = LEVEL_WIN;
-					
-					break;
-				}
 
 
 			} ;
-			
-						
+			if (command == START) {
+				tracking.update();
+				break;
+			}
+					
 			break;
 				
 			
@@ -91,7 +97,7 @@ Game::Game() {
 			command = graphics.afterLevelWin(tracking.getLevel(), MAX_LEVEL);
 			tracking.update();
 			if (command == LEVEL) {
-				titlesOn == false;
+				titlesOn = false;
 				command = TITLES;
 			}
 			
