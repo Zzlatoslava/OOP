@@ -6,8 +6,10 @@
 class FileOutput : public MessageOutput {
 public:
     FileOutput(const std::string& filename);
-    void outputMessage(const IMessage& message) const override;
+    void outputMessage( const IMessage& message)   override;
+    ~FileOutput();
 
 private:
     std::ofstream file;
+   
 };

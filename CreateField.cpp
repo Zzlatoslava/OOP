@@ -8,7 +8,10 @@ CreateField::CreateField(GameField* gamefield,PlayerMovement* pmovement, int num
 	this->field = gamefield;
 	this->movement = pmovement;
 	this->level = num_level;
-	
+	Enemy<SeekAndMoveScheme, PushInteractionScheme> enemy(gamefield, pmovement);
+	Miroslava = enemy;
+	Enemy<RandomMoveScheme, DamageInteractionScheme> enemy1(gamefield, pmovement);
+	Radmila = enemy1;
 }
 
 void CreateField::createLevel() {
@@ -168,6 +171,8 @@ void CreateField::createLevel() {
 	field->setStart(5, 5);
 	field->setEnd(17, 0);
 	movement->setCoordinates(field->getStartX(), field->getStartY());
+	Miroslava.setCoord(10, 12);
+	Radmila.setCoord(21,9);
 
 	if (this->level == 1) {
 		std::cout << "Create 1 level..\n";
@@ -176,7 +181,9 @@ void CreateField::createLevel() {
 		auto* reducedHealth = new ReducedHealth(movement);
 		this->setEventCF(reducedHealth, 15);
 		this->setEventCF(collectPoint, SCORE);
+		//
 
+		
 		/**/
 		
 	}
@@ -196,9 +203,9 @@ void CreateField::createLevel() {
 		auto* collectPoint = new CollectAPoint(movement);
 		this->setEventCF(collectPoint, SCORE);
 		auto* addingHealth = new AddingHealth(movement);
-		this->setEventCF(addingHealth, 5);
+		this->setEventCF(addingHealth, 3);
 		auto* reducedHeath = new ReducedHealth(movement);
-		this->setEventCF(reducedHeath, 3);
+		this->setEventCF(reducedHeath,15);
 
 
 		for (int x = 25; x <= 29; x++) {
@@ -255,3 +262,33 @@ int CreateField::getLevel() {
 void CreateField::setLevel(int num_level){
 	this->level = num_level;
 }
+
+
+void CreateField::moveEnemyM()
+{
+	Miroslava.Move();
+	Miroslava.Interact();
+	Miroslava.printQ();
+}
+
+Coord CreateField::getCoordM()
+{
+	Coord w{ Miroslava.getCoordX(), Miroslava.getCoordY() };
+	return w;
+}
+
+
+
+void CreateField::moveEnemyR()
+{
+	Radmila.Move();
+	Radmila.Interact();
+	Radmila.printQ();
+}
+
+Coord CreateField::getCoordR()
+{
+	Coord w{ Radmila.getCoordX(), Radmila.getCoordY() };
+	return w;
+}
+

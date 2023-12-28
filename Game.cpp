@@ -1,5 +1,5 @@
 #include "Game.h"
-
+bool titlesOn = true;
 Game::Game() {
 
 	Player player;
@@ -13,7 +13,7 @@ Game::Game() {
 	Commands command = START;
 	bool work = true;
 	
-	Message message(&tracking,MessageTracker::OutputMode::Console, "game_log.txt");
+	
 	file.InputSettingsReader("keys.txt");
 	while (work) {
 
@@ -25,47 +25,58 @@ Game::Game() {
 		case SELECT_LEVEL:
 			command = graphics.selectLevelWin();
 			if (command == LEVEL_1) {
-				tracking.setLevel(1);
-				command = LEVEL;
+				if (titlesOn) {
+					tracking.setLevel(1);
+					command = TITLES;
+				}
+				else {
+					tracking.setLevel(1);
+					command = LEVEL;
+				}
 			}
 			else if (command == LEVEL_2) {
 				tracking.setLevel(2);
 				command = LEVEL;
 			}
 			break;
+		case TITLES:
+			command = graphics.titlesGUI();
+			break;
+
 		case LEVEL:
 			
 			GMap.setLevel(tracking.getLevel());
 			GMap.createLevel();
-			message.newGame();
-			graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate() );
+			
+			graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), GMap.getCoordM(), GMap.getCoordR());
 			Move move;
 			
 			while (true) {
 				move = reader.read(file.getKeyList());
 				nav.move(tracking.moveSelection(move));
 				if (tracking.movePlayer()) {
-					message.commandExecuted(tracking.moveToString(move));
+					GMap.moveEnemyM();
+					GMap.moveEnemyR();
 					tracking.printIndicators();
-					command = graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), move);
+					command = graphics.levelGame(nav.getXCoordinate(), nav.getYCoordinate(), GMap.getCoordM(), GMap.getCoordR(), move);
 
 				}
 				else if (move == escape) {
 					command = START;
+					tracking.update();
 					break;
 				}
-				else {
-					message.commandNotExecuted();
-				}
+				
 				
 				if (tracking.dead()) {
 					command = GAME_OVER;
-					message.playerLoses();
+					
+					tracking.update();
 					break;
 				}
 				if (tracking.winGame()) {
 					command = LEVEL_WIN;
-					message.playerWins();
+					
 					break;
 				}
 
@@ -79,6 +90,10 @@ Game::Game() {
 		case LEVEL_WIN:
 			command = graphics.afterLevelWin(tracking.getLevel(), MAX_LEVEL);
 			tracking.update();
+			if (command == LEVEL) {
+				titlesOn == false;
+				command = TITLES;
+			}
 			
 			break;
 		case END:

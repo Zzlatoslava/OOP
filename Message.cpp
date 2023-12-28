@@ -5,7 +5,7 @@ Message::Message(Tracking* track, const MessageTracker::OutputMode outputMode, c
 
 void Message::playerWins() {
     PlayerWinMessage playerWinMessage(tracking->printIndicators());
-    messageTracker.sendMessage(playerWinMessage);
+    messageTracker.sendMessage(playerWinMessage );
 }
 
 void Message::playerLoses() {

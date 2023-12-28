@@ -13,6 +13,7 @@ RenderGUI::RenderGUI()
     heart();
     teleport();
     fishRed();
+    enemy();
 }
 
 void RenderGUI::setBackground(std::string filename)
@@ -26,7 +27,7 @@ void RenderGUI::setBackground(std::string filename)
 
 void RenderGUI::level()
 {
-    if (!textureL.loadFromFile("Image/flat.png"))
+    if (!textureL.loadFromFile("Image/flat_2.png"))
     {
         throw "Image loading error\n";
     }
@@ -128,6 +129,22 @@ void RenderGUI::teleport()
     teleportS.setTexture(textureTeleport);
 }
 
+void RenderGUI::enemy()
+{
+    if (!textureEnemy.loadFromFile("Image/enemy.png"))
+    {
+        throw "Image loading error\n";
+    }
+
+    enemyMS.setTexture(textureEnemy);
+    enemyMS.setTextureRect(sf::IntRect(0, 55, 80, 93));
+    enemyMS.setOrigin(40.f, 70.f);
+    enemyRS.setTexture(textureEnemy);
+    enemyRS.setTextureRect(sf::IntRect(79, 66, 72, 84));
+    enemyRS.setOrigin(36.f, 63.f);
+
+}
+
 sf::Sprite RenderGUI::getBackground()
 {
     return background;
@@ -181,6 +198,16 @@ sf::Sprite RenderGUI::getFishRed()
 sf::Sprite RenderGUI::getTeleport()
 {
     return teleportS;
+}
+
+sf::Sprite RenderGUI::getEnemyR()
+{
+    return  enemyRS;
+}
+
+sf::Sprite RenderGUI::getEnemyM()
+{
+    return  enemyMS;
 }
 
 

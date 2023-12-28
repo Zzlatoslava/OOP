@@ -1,19 +1,20 @@
 #include "MessageTracker.h"
 
 MessageTracker::MessageTracker(OutputMode outputMode, const std::string& filename) {
-    if (outputMode == OutputMode::Console || outputMode == OutputMode::ConsoleAndFile) {
-        outputHandler = std::make_unique<ConsoleOutput>();
-    }
-
     if (outputMode == OutputMode::File || outputMode == OutputMode::ConsoleAndFile) {
         if (!filename.empty()) {
             outputHandler = std::make_unique<FileOutput>(filename);
         }
         else {
-            outputMode = OutputMode::None; 
+            outputMode = OutputMode::None;
         }
     }
 
+    if (outputMode == OutputMode::Console || outputMode == OutputMode::ConsoleAndFile ) {
+        outputHandler = std::make_unique<ConsoleOutput>();
+    }
+
+    
     this->outputMode = outputMode;
 }
 

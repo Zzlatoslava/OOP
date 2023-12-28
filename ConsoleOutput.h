@@ -3,5 +3,5 @@
 
 class ConsoleOutput : public MessageOutput {
 public:
-    void outputMessage(const IMessage& message) const override;
+    void outputMessage(const IMessage& message)  override;
 };

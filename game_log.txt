@@ -1,0 +1,23 @@
+New Game: 
+	Size field: 30*20
+	x:5 y:5
+Command Executed: 
+		key: 97
+		command: move_left
+Command Executed: 
+		key: 97
+		command: move_left
+Command Executed: 
+		key: 115
+		command: move_down
+Command Not Executed: 
+		key: 115
+Command Executed: 
+		key: 100
+		command: move_right
+Command Executed: 
+		key: 119
+		command: move_up
+Command Executed: 
+		key: 100
+		command: move_right

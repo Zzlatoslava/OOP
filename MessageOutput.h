@@ -4,5 +4,5 @@
 class MessageOutput {
 public:
     virtual ~MessageOutput() = default;
-    virtual void outputMessage(const IMessage& message) const = 0;
+    virtual void outputMessage(const IMessage& message)  = 0;
 };

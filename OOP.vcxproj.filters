@@ -13,11 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\Message">
-      <UniqueIdentifier>{fd967cf7-859a-488e-b609-e5938a4f757f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\Message">
-      <UniqueIdentifier>{4173619e-3ee2-400f-bb90-79a7e66a8d3f}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\Enemy">
+      <UniqueIdentifier>{578b6f67-61b7-41db-93ee-9483fff7ac24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -77,33 +74,6 @@
     </ClCompile>
     <ClCompile Include="DoubleScore.cpp">
       <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerWinMessage.cpp">
-      <Filter>Исходные файлы\Message</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerLoseMessage.cpp">
-      <Filter>Исходные файлы\Message</Filter>
-    </ClCompile>
-    <ClCompile Include="NewGameMessage.cpp">
-      <Filter>Исходные файлы\Message</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandExecutedMessage.cpp">
-      <Filter>Исходные файлы\Message</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandNotExecutedMessage.cpp">
-      <Filter>Исходные файлы\Message</Filter>
-    </ClCompile>
-    <ClCompile Include="ConsoleOutput.cpp">
-      <Filter>Исходные файлы\Message</Filter>
-    </ClCompile>
-    <ClCompile Include="FileOutput.cpp">
-      <Filter>Исходные файлы\Message</Filter>
-    </ClCompile>
-    <ClCompile Include="MessageTracker.cpp">
-      <Filter>Исходные файлы\Message</Filter>
-    </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>Исходные файлы\Message</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,38 +149,20 @@
     <ClInclude Include="DoubleScore.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="IMessage.h">
-      <Filter>Файлы заголовков\Message</Filter>
+    <ClInclude Include="Enemy.h">
+      <Filter>Файлы заголовков\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerWinMessage.h">
-      <Filter>Файлы заголовков\Message</Filter>
+    <ClInclude Include="RandomMoveScheme.h">
+      <Filter>Файлы заголовков\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerLoseMessage.h">
-      <Filter>Файлы заголовков\Message</Filter>
+    <ClInclude Include="SeekAndMoveScheme.h">
+      <Filter>Файлы заголовков\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="NewGameMessage.h">
-      <Filter>Файлы заголовков\Message</Filter>
+    <ClInclude Include="DamageInteractionScheme.h">
+      <Filter>Файлы заголовков\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CommandExecutedMessage.h">
-      <Filter>Файлы заголовков\Message</Filter>
-    </ClInclude>
-    <ClInclude Include="CommandNotExecutedMessage.h">
-      <Filter>Файлы заголовков\Message</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageOutput.h">
-      <Filter>Файлы заголовков\Message</Filter>
-    </ClInclude>
-    <ClInclude Include="ConsoleOutput.h">
-      <Filter>Файлы заголовков\Message</Filter>
-    </ClInclude>
-    <ClInclude Include="FileOutput.h">
-      <Filter>Файлы заголовков\Message</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageTracker.h">
-      <Filter>Файлы заголовков\Message</Filter>
-    </ClInclude>
-    <ClInclude Include="Message.h">
-      <Filter>Файлы заголовков\Message</Filter>
+    <ClInclude Include="PushInteractionScheme.h">
+      <Filter>Файлы заголовков\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

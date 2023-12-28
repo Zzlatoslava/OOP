@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Message.h"
+#include "Tracking.h"
 #include <SFML/Graphics.hpp>
 #include "RenderGUI.h"
 #include "Commands.h"
@@ -20,12 +20,14 @@ public:
 	GUI(Tracking * tracking);
 	Commands startWin();
 	Commands selectLevelWin();
+	Commands titlesGUI();
+	
 	Commands afterLevelWin( int num_level, int max_level);
 	Commands endWin();
 	Commands gameOverWin();
 	
 
-	Commands levelGame(int newX, int newY, Move move = Default);
+	Commands levelGame(int newX, int newY, Coord xyM, Coord xyR,  Move move = Default);
 	void moveCat(Move move);
 	
 

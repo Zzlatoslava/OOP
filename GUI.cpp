@@ -145,6 +145,40 @@ Commands GUI::selectLevelWin(){
 
 }
 
+Commands GUI::titlesGUI()
+{
+    if (tracking->getLevel() == 1) {
+        graphics.setBackground("Image/AfterChoice.png");
+    }
+    else {
+        graphics.setBackground("Image/After1Level.png");
+    }
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+                return EXIT;
+            }
+
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    return LEVEL;
+                }
+            }
+        }
+
+        window.clear();
+        window.draw(graphics.getBackground());
+        window.display();
+    }
+}
+
 Commands GUI::afterLevelWin(int num_level, int max_level){
     
    
@@ -172,7 +206,7 @@ Commands GUI::afterLevelWin(int num_level, int max_level){
     text.setString("Score:" + std::to_string(tracking->getScore()));
     text.setPosition(530.f, 315.f);
 
-    textT.setString("Total score:" + std::to_string(tracking->getTotalScore() + tracking->getScore() +tracking->getTotalScore()));
+    textT.setString("Total score:" + std::to_string(tracking->getTotalScore() + tracking->getScore() +tracking->getDoubleScore()));
     textT.setPosition(360.f, 455.f);
     
 
@@ -303,12 +337,14 @@ Commands GUI::gameOverWin(){
 
 
 
-Commands GUI::levelGame(int newX, int newY, Move move) {
+Commands GUI::levelGame(int newX, int newY, Coord xyM, Coord xyR, Move move ) {
     auto fish = graphics.getFish();
     auto heart = graphics.getHeart();
     auto water = graphics.getWater();
     auto teleport = graphics.getTeleport();
     auto fishRed = graphics.getFishRed();
+    auto enemyM = graphics.getEnemyM();
+    auto enemyR = graphics.getEnemyR();
     
     sf::Event event;
     
@@ -369,9 +405,12 @@ Commands GUI::levelGame(int newX, int newY, Move move) {
         
         moveCat(move);
         cat.setPosition(120.f + newX * 40.f, 125.f + newY * 40.f);
-
+        enemyM.setPosition(120.f + xyM.x * 40.f, 125.f + xyM.y * 40.f);
+        enemyR.setPosition(120.f + xyR.x * 40.f, 125.f + xyR.y * 40.f);
 
         window.draw(cat);
+        window.draw(enemyM);
+        window.draw(enemyR);
         window.display();
         }
 
